@@ -56,9 +56,9 @@
 
 - 기존 레이아웃 방식
 
-  1. 모든 레이아웃 영역을 <div>태그를 사용하므로 세부 구별이 어려움
+  1. 모든 레이아웃 영역을 `<div>`태그를 사용하므로 세부 구별이 어려움
 
-  2. <div>태그의 id속성값으로 의미리르 표시하거나 class 속성값으로 의미를 표현
+  2. 태그의 id속성값으로 의미를 표시하거나 class 속성값으로 의미를 표현
 
 - 시맨틱 레이아웃 방식
   	1. 레이아웃 영역을 시맨틱 태그를 이용해 구분
@@ -82,30 +82,30 @@
 
 - 더 풍부한 웹 애플리케이션
 
-- 1. 비디오/오디오 재생을 위한 요소(video/audio), 2D, 3D 그래픽 처리(canvas)
+  1. 비디오/오디오 재생을 위한 요소(video/audio), 2D, 3D 그래픽 처리(canvas)
 
-- 2. 오프라인에서도 작동되는 애플리케이션(Application Cache)
+  2. 오프라인에서도 작동되는 애플리케이션(Application Cache)
 
-- 3. 도메인 간의 통신 구현(Cross Document Messaging, XMLHttpRequest Level2)
+  3. 도메인 간의 통신 구현(Cross Document Messaging, XMLHttpRequest Level2)
 
-- 4. 클라이언트 측에 데이터 저장(Web Storage, Indexed DB)
+  4. 클라이언트 측에 데이터 저장(Web Storage, Indexed DB)
 
-- 5. 백그라운드 처리 수행(Web workers)
+  5. 백그라운드 처리 수행(Web workers)
 
-- 6. 서버로부터의 데이터 푸시나 서버와의 양방향 통신 수행
+  6. 서버로부터의 데이터 푸시나 서버와의 양방향 통신 수행
 
-- 7. (Server-Sent Events, Web Sockets)
+  7. (Server-Sent Events, Web Sockets)
 
-- 8. 로컬 파일의 내용으르 읽어들임(File API) <--- 서버가 아닌 클라이언트에서 가능
+  8. 로컬 파일의 내용으르 읽어들임(File API) <--- 서버가 아닌 클라이언트에서 가능
 
 - 더 시맨틱한 마크업
 
-- 1. 기계가 분석해서 해석 가능 <-- 문서의 의미를 부여하는 마크업 언어 추가됨
+  1. 기계가 분석해서 해석 가능 <-- 문서의 의미를 부여하는 마크업 언어 추가됨
 
-- 2. 디자인영역 구분하기 위한 <div>태그 사용 -> 각 용도별 의미있는 태그
+  2. 디자인영역 구분하기 위한 <div>태그 사용 -> 각 용도별 의미있는 태그
 
-- 3. 문서 구조의 의미나 문서 안에 삽입된 데이터의 의미 등을 명확히 하기 위한 사양이 다수 포함되어 시맨틱 웹의 구현
+  3. 문서 구조의 의미나 문서 안에 삽입된 데이터의 의미 등을 명확히 하기 위한 사양이 다수 포함되어 시맨틱 웹의 구현
 
-- - `-` <head>,  <section>, <footer>, <article>, <nav>, <address>, <time>......
+  4.  `<head>,  <section>, <footer>, <article>, <nav>, <address>, <time>......`
 
 - IE에서는 HTML5 기능을 상당수 지원하지 않기에 권장하지 않음
