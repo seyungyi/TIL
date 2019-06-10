@@ -206,3 +206,24 @@ HandlieLidSwitch=ignore
 < 그래픽 환경(GUI)인 경우 [설정] - [Power] - [lid is closed] 해제 >
 ```
 
+## 디스크 마운트
+
+```
+하드디스크의 UUID 알아보기
+# ll /dev/disk/by-uuid
+
+하드디스크 추가
+# sudo gedit /etc/fstab
+맨 마지막줄에 내용 추가
+UUID=UUID입력	마운트위치	파일시스템종류	옵션	덤프	패스
+(<file system>	<mount point>	<type>	<options>	<dump>	<pass>)
+file system : UUID 입력
+mount point : 마운트 위치 지정. 사전에 마운트할 위치의 디렉터리 생성해야함
+type : 파일 시스템 종류
+options : 별다른 값 없다면 default
+dump : 동일
+pass : 동일 
+```
+
+
+

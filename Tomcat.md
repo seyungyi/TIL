@@ -86,4 +86,13 @@ sudo service tomcat8 restart
 tomcat 알집 해제 폴더
 ```
 
-출처: https://all-record.tistory.com/182
+출처: https://all-record.tistory.com/1827
+
+### Tomcat 웹 폴더 장소
+
+```
+설치한 톰캣 경로 기준으로 시작
+/apache-tomcat-버전/
+# cd webapps/ROOT
+```
+
