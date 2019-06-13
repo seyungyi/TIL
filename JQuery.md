@@ -82,3 +82,12 @@ var ary = [10, 20, 30, 40, 50];
 - `<form>` 태그의 서브태그 중 `<textarea>` : html(), text(), val() 모두 사용 가능하다
 - prop()메소드를 사용해야 checkbox 의 'checked' 속성값을 체크할 수 있다
 - find()메소드는 getElementByTagName() 과 같은 기능을 수행한다 : 해당 TagName을 가진 DOM 객체를 찾는다
+
+
+
+## < jQuery에서 Ajax 프로그래밍 지원 API >
+
+- $.getXXX메소드 = **$.ajax()**, [$.get(), $.post(), $.getJSON()] : $.ajax()를 확장(추가?)한 개념
+- $(Ajax요청으로 응답받은 내용을 추가하려는 부모태그).load() 메소드  
+- $.param : 자바스크립트 객체를 Query 문자열로 만드는 메소드
+- $('id등').serialize() : 폼 태그를 구성하고 있는 각종 입력태그의 내용을 가지고 Query 문자를 만든다

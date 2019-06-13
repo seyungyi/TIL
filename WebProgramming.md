@@ -1,14 +1,11 @@
-# [ 웹 프로그래밍 ]
+# [ Web Programming ]
 
-- 웹 클라이언트 : HTML, CSS, JavaScript, Ajax, HTML5 주요 API
-- 웹 서버 : Servelet&JSP, Spring FW, MyBatis
-- 웹기반 시각화 : D3.js
-- 오픈 API : 네이버 또는 구글
-
-
-
-- 웹서버 - Tomcat(Web Application Server : WAS)
-- 웹클라이언트 - 크롬
+- Web Client : HTML, CSS, JavaScript, Ajax, HTML5 주요 API
+- Web Server : Servelet&JSP, MVC패턴, MyBatis, Spring IoC, Spring MVC, Spring FW
+- Web Visualize : D3.js
+- Open API : 네이버 또는 구글
+- Server Program : Tomcat ( Web Application Server : WAS )
+- Client Program : Chrome
 
 ## 설치경로 
 
