@@ -65,3 +65,42 @@
     - GET 방식의 경우에는 Query 문자열 추출시 한글이 깨지지 않는다
     - POST 방식은 깨짐 : 추출하기 전에 request.setCharacterEncoding("UTF-8"); 을 호출한 후 추출
 
+### < edu, sedu 라는 프로젝트 폴더 > 2019/06/17
+
+- Dynamic Web Project : Eclipse 측면에서의 프로젝트 명칭
+- Context : WAS (등록의 개수제한이 없지만 실행시간이 걸림)
+  - 각각의 컨테스트로 구축시 관리 및 유지보수가 수월해짐( 관리자폴더 수정시 학습폴더 수행 가능 )
+- Web Application : Developer 기준에서의 프로젝트 명칭
+
+### [ 세션 : HttpSession 객체 ]
+
+- HttpSession 객체
+
+  - 요청을 보내온 클라이언트 단위로 객체가 한 개만 생성되는 객체로서 한 번 생성되면 해당 클라이언트가 종료될 때까지 객체가 유지된다
+  - 클라이언트별로 어떤 정보를 원하는 시각까지 유지하고 싶을 때 사용한다
+
+  -  scope : 메모리에 저장장소가 만들어진 후 언제까지 유지되는가?
+    - page scope : 요청된 서버 프로그램이 수행하는 동안 유지 - 지역변수(가 가진다)
+    - request scope : 요청된 서버 프로그램이 수행하고 응답하기 전까지 유지 - HttpServletRequest 객체에 저장된 객체
+    - session scope : 세션이 유지되는 동안 - HttpSession 객체에 저장된 객체
+    - application scope : 서버가 기동되고 나서 종료될때 까지 - 멤버변수, ServletContext 객체에 저장된 객체
+
+- 지역변수 : 수행하는 동안 지속되며 종료되면 사라진다. 클라이언트별로 각각 메모리 할당
+- 멤버변수 : 서버가 종료될 때까지 메모리 영역을 할당한다. 모든 클라이언트에 의해서 공유됨
+- 클라이언트 별로 개별적 저장, 원할 때까지 유지 ----> HttpSession 객체에 보관한다
+- HttpSession 객체는 언제까지 유지되는가?
+  1. 브라우저가 기동되어 있는 동안 유지
+  2. invalidate() 메소드가 호출되기 전까지
+  3. inactive interval 시간이 적용되기 전까지 - 30분
+- 객체로 만든다(배열 객체)
+  - 저장 : session.setAttribute("이름", 객체);
+  - 삭제 : session.removeAttribute("이름");
+  - 추출 : session.getAttribute("이름"); ---> 강제 형변환은 필수
+
+### [ 파일 업로드 ] 2019/06/18
+
+- (웹) 클라이언트에서 서버(HttpServer)에게  요청을 보낼 때  name=value로 구성된 쿼리 문자열을 전달할 수 있다(영문, 숫자, 일부특수문자는 그대로 전달, 나머지는 인코딩)
+  - name=value&name=value.......
+  - form 태그의 action 속성 -> application/x-www-form-urlencoded : POST 방식 요청시 namevalue설정에 대한 정보
+- 서버에게 전달하는 데이터에 클라리언트에 존재하는 파일을 첨부해서 요청하려는 경우에는 다른 형식으로 전달해야 함(applicaion방식은 X)
+  - multipart/form-data
