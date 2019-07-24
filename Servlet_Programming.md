@@ -104,3 +104,8 @@
   - form 태그의 action 속성 -> application/x-www-form-urlencoded : POST 방식 요청시 namevalue설정에 대한 정보
 - 서버에게 전달하는 데이터에 클라리언트에 존재하는 파일을 첨부해서 요청하려는 경우에는 다른 형식으로 전달해야 함(applicaion방식은 X)
   - multipart/form-data
+
+### [ MVC 패턴 간략히 ]
+
+- 소프트웨어공학에서 사용되는 아키텍처 패턴
+- 사용자 인터페이스로부터 비지니스 로직을 분리해 시각적 요소와 이면에서 실행되는 비지니스 로직을 영향없이 쉽게 고칠 수 있게하는 패턴

@@ -225,5 +225,24 @@ dump : 동일
 pass : 동일 
 ```
 
+## 네트워크 공유폴더 마운트
+
+```
+최근의 우분투에서는 우분투에서 윈도우 공유폴더의 접근이 간단해짐
+1.CIFS 설치를 통해 공유가능
+# sudo apt-get install cifs-utils
+2.공유폴더를 마운트할 폴더 생성
+# sudo mkdir shareFolder
+3.마운트 디스크 설정 변경
+# sudo gedit /etc/fstab
+4.마운트 시킬 공유폴더의 ip/폴더명 계정명 등의 옵션 지정
+ip주소/공유폴더명	마운트폴더위치	cifs	username=계정,password=암호	0	0
+5.마운트 설정이 된 폴더들을 자동으로 전부 마운트
+# sudo mount -a
+6.마운트 폴더에서 확인
+# cd shareFolder
+# ls -l
+```
+
 
 
