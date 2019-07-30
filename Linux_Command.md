@@ -70,6 +70,8 @@ alien 미설치시
 변환
 # alien [패키지이름.rpm]
 ex) # sudo alien -k --script 파일명.rpm
+CentOS 경우
+# rpm [파일명]
 ```
 
 ### deb 파일
