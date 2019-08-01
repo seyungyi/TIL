@@ -177,22 +177,10 @@
   ```
   jps
   
-  - 데몬이 제대로 수행되었는지 확인한다. – jps 사용
+  - 데몬이 제대로 수행되었는지 확인한다. – jps 사용( JVM Process Status )
       master : NameNode
       slave1, slave2, slave3 : DataNode
       slave1 : SecondaryNameNode
-  ```
-
-- 하둡 DHFS 영역에 폴더를 구축한다.
-
-  ```
-  강사시스템에서 파일 세개를 가져가서 리눅스의 sampledata 디렉토리에 넣고 압축파일은 압축을 푼다.
-     ( 압축해제 명령 : bzip2 -kd 2008.csv.bz2 )
-  # hdfs dfs -ls /
-  # hdfs dfs -mkdir /edudata
-  # hdfs dfs -chmod 777 /edudata
-    # hafs dfs -put /root/sampledata/파일명   /edudata
-    # hdfs dfs -ls /edudata
   ```
 
 -  웹 페이지에서 저장된 블록 채크
@@ -205,6 +193,146 @@
 
   ```
   stop-dfs.sh
+  ```
+
+- 하둡 DHFS 영역에 폴더를 구축한다.
+
+  ```
+  강사시스템에서 파일 세개를 가져가서 리눅스의 sampledata 디렉토리에 넣고 압축파일은 압축을 푼다.
+     ( 압축해제 명령 : bzip2 -kd 2008.csv.bz2 )
+  # hdfs dfs -ls /
+  # hdfs dfs -mkdir /edudata
+  # hdfs dfs -chmod 777 /edudata
+  # hafs dfs -put /root/sampledata/파일명   /edudata
+  # hdfs dfs -ls /edudata
+  ```
+
+- eclipse 설치
+
+  ```
+  1.tools폴더에 eclipse 설치
+  2.mv eclipse .. (root로 옮기기)
+  3.cd eclipse
+  4.eclipse 실행(./eclipse)
+  ```
+
+- maven 변환
+
+  ```
+  1.java project 생성
+  2.[configure] - [convert maven project]
+  3.pom.xml에 dependency 추가
+  <dependency>
+  	<groupId>org.apache.hadoop</groupId>
+  	<artifactId>hadoop-common</artifactId>
+  	<version>2.7.7</version>
+  </dependency>
+  <dependency>
+  	<groupId>org.apache.hadoop</groupId>
+  	<artifactId>hadoop-client</artifactId>
+  	<version>2.7.7</version>
+  </dependency>
+  ```
+
+- Java와 Hadoop 연동
+
+  ```
+  - hadoop File I/O Dependency
+  <dependency>
+     <groupId>org.apache.hadoop</groupId>
+     <artifactId>hadoop-common</artifactId>
+     <version>2.7.7</version>
+  </dependency>
+  	
+  <dependency>
+     <groupId>org.apache.hadoop</groupId>
+     <artifactId>hadoop-client</artifactId>
+     <version>2.7.7</version>
+  </dependency>
+  <dependency>
+     <groupId>org.apache.hadoop</groupId>
+     <artifactId>hadoop-mapreduce-client-core</artifactId>
+     <version>2.7.7</version>
+  </dependency>
+  
+  <dependency>
+     <groupId>org.apache.hadoop</groupId>
+     <artifactId>hadoop-annotations</artifactId>
+     <version>2.7.7</version>
+  </dependency> 
+  	
+  <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.6</version>
+  </dependency>
+   
+  <dependency>
+     <groupId>org.springframework.data</groupId>
+     <artifactId>spring-data-hadoop</artifactId>
+     <version>2.5.0.RELEASE</version>
+  </dependency>
+  	
+  		
+  <!-- https://mvnrepository.com/artifact/jdk.tools/jdk.tools -->
+  <dependency>
+  	<groupId>jdk.tools</groupId>
+  	<artifactId>jdk.tools</artifactId>
+  	<version>1.8</version>
+  	<scope>system</scope>
+  	<systemPath>C:/Program Files/Java/jdk1.8.0_211/lib/tools.jar</systemPath>
+  </dependency>
+  ```
+
+- Hadoop HDFS 프로그램 구현
+
+  ```
+  // 파일 복사
+    Configuration config = new Configuration();
+    FileSystem hdfs = FileSystem.get(config);
+    Path srcPath = new Path(srcFile);
+    Path dstPath = new Path(dstFile);
+    hdfs.copyFromLocalFile(srcPath, dstPath);
+  
+    // 파일 생성
+    Configuration config = new Configuration();
+    FileSystem hdfs = FileSystem.get(config);
+    Path path = new Path(fileName);
+    FSDataOutputStream outputStream = hdfs.create(path);
+    outputStream.write(buff, 0, buff.length);
+  
+    // 파일명 변경
+    Configuration config = new Configuration();
+    FileSystem hdfs = FileSystem.get(config);
+    Path fromPath = new Path(fromFileName);
+    Path toPath = new Path(toFileName);
+    boolean isRenamed = hdfs.rename(fromPath, toPath);
+    // 파일 삭제
+    Configuration config = new Configuration();
+    FileSystem hdfs = FileSystem.get(config);
+    Path path = new Path(fileName);
+    boolean isDeleted = hdfs.delete(path, false);
+  
+    // 재귀적으로 파일 삭제
+    Configuration config = new Configuration();
+    FileSystem hdfs = FileSystem.get(config);
+    Path path = new Path(fileName);
+    boolean isDeleted = hdfs.delete(path, true);
+  
+    // 리스트 출력
+    Configuration config = new Configuration();
+    FileSystem fs = FileSystem.get(URI.create(uri), config);
+      
+    Path[] paths = new Path[args.length];
+       for (int i = 0; i < paths.length; i++) {
+          paths[i] = new Path(args[i]);
+    }
+      
+    FileStatus[] status = fs.listStatus(paths);
+    Path[] listedPaths = FileUtil.stat2Paths(status);
+    for (Path p : listedPaths) {
+       System.out.println(p);
+    }
   ```
 
   
