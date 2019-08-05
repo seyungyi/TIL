@@ -1,5 +1,7 @@
 # [ AJAX (Asynchronous JavaScript And XML)]
 
+- 정의
+  - Ajax란 전체 페이지를 변경하는 것이 아닌 페이지의 일부분만 변경하는 web 통신 방식이다. (비동기 통신방식)
 - 사용이유
   - 웹브라우저와 서버의 데이터 전송을 조각방식으로 나눠 전체 페이지를 리로드하지 않아도 되는 유용성 때문이다
   - 기존 XML이 데이터 교환시 전체 페이지를 모두 전송하여 대역폭 낭비가 심했음
@@ -81,23 +83,153 @@ function handleStateChange() {
 
 ## < XML >
 
-- GML( IBM : 출판문서 작성 용도 )
+- **GML**(Geography Markup Language)(IBM에서 만듬 : 출판문서 작성용도로 사용)
 
-  `-` SGML( 표준 : 출판뿐만 아니라 규격 문서를 작성하는 범용 용도 )
+  ---> GML을 표준화시켜 만든 것이 **SGML**(Standard Generalized Markup Language)이다.
 
-  ​	`-` HTML( 웹 페이지 제작용 )  => 태그가 정해져 있음
+  ​	(표준 : 출판뿐만 아니라 규격문서를 작성하는 범용용도로 사용)
 
-  ​	`-` XML( 다목적 ...., 규격화된 문서 작성용 ) => 직접 태그 정의(=용도에 맞춰서 정의)
+  ---> **HTML**(웹페이지 제작용도) - 태그가 정해져 있음
 
-  ​		`-` 시작 태그와 종료태그가 반드시 존재하는 규칙. 엄격함
+  ---> **XML**(Extensible Markup Language)(다목적 규격화된 문서 작성용) - 직접 태그 정의
 
-  ​		`-` <태그명> .... </태그명>
+  ​	<태그명>...<태그명/> : 종료태그를 반드시 명시해야한다.
 
-  ​		`-` <태그명 속성명 = "속성값">
+  ​	<태그명/>
+
+  ​	<태그명 속성명="속성값">
 
 - 크롬 개발자도구에서 Network탭의 xhr 이 ajax 응답을 뜻하는 것임
 
+- XMLHttpRequest 객체
 
+  서버 측과의 비동기 통신을 제어한다.
+
+  XMLHttpRequest 객체 생성 : new XMLHttpRequest()
+
+  - open( ... ) : HTTP 요청을 초기화한다.
+
+  - send([body]) : HTTP 요청을 송신한다.
+
+  - onreadystatechange : 통신 상태가 변화된 타이밍에 호출되는 이벤트 핸들러이다.
+
+    readyState 값
+
+    | 반환값 | 설명                                                         |
+    | ------ | ------------------------------------------------------------ |
+    | 0      | 미초기화(open메서드가 호출되지 않음)                         |
+    | 1      | 로드 중(open메서드가 호출됨, send메서드는 호출되지 않음)     |
+    | 2      | 로드 완료(send 메서드가 호출됨, 응답스테이터스/헤더는 미취득) |
+    | 3      | 일부 응답을 취득(응답스테이터스/헤더만 취득, 본체는 미취득)  |
+    | 4      | 모든 응답데이터를 취득 완료                                  |
+
+  - status : HTTP Status코드를 취득한다.
+
+    ```
+    function requestAjax() { //페이지 이동없이 데이터를 받아온다.
+    	var req = new XMLHttpRequest(); //브라우저 내부에 있는 ajax엔진을 초기화한다.
+    	var result = document.getElementById("result");
+    	req.onreadystatechange = function() {		
+    		alert("req.readyState : "+req.readyState);       
+    		if(req.status == 200 && req.readyState == 4) 
+             	//readyState 값 200은 서버로부터 응답이 성공적으로 왔다는 것이다.
+                //readyState 값 4는 서버로부터 응답이 다왔다는 것이다.
+    			result.innerHTML += req.responseText; 
+    	}	
+    	req.open("GET", "content/sample.txt", true); //true : 비동기방식으로 보내겠다는 것이다.	
+    	req.send(); 	
+    }
+    ```
+
+  - [ XMLHttpRequest 객체에서 제공되는 이벤트 관련 속성 ]
+
+    - onloadstart
+    - onprogress
+    - onabort
+    - onerror
+    - onload
+    - ontimeout
+    - onloadend : 항상 마지막에 발생하는 이벤트이다.
+    - onreadystatechange
+
+- **JSON**(JavaScript Object Notation)
+
+  인터넷에서 자료를 주고 받을 때 그 자료를 표현하는 방법이다.
+
+  ```
+  <script>
+  window.onload = function() {
+  	setInterval(function() { //폴링 - 주기적으로 서버한테 요청해서 데이터를 받아오는 기술이다.
+  		var request = new XMLHttpRequest(); //이용시간이 많을 때 더 자주 받아온다.
+  		request.onload = function(event) {
+  			if (request.status == 200) {
+  				var str = request.responseText;
+  				var obj = JSON.parse(str);
+  				var target = document.getElementById('news');
+  				target.innerHTML = obj.news;
+  			}
+  		};
+  		request.open('GET', 'content/newsjson.jsp', true);
+  		request.send();
+  	}, 2000);
+  };	
+  </script>
+  ```
+
+- Same Origin Policy(SOP)
+
+  브라우저에서 보안상의 이슈로 동일 사이트의 자원(Resource)만 접근해야 한다는 제약이다.
+
+- Cross Origin Resource Sharing(CORS)
+
+  ```
+  response.addHeader("Access-Control-Allow-Origin", "*");
+  ```
+
+  Origin이 아닌 다른 사이트의 자원을 접근하여 사용한다는 의미이다. 따라서 ajax로 직접 요청해서 가져올 수 있다.
+
+- HTTP 요청 방식(웹 클라이언트가 웹 서버에게 요청하는 방식)
+
+  - GET 방식 :
+    - <http://localhost:8000/edu/first.jsp>
+
+  ​	<http://localhost:8000/edu/first.jsp?page=1&id=1000(>? 뒤 문자열을 **쿼리 문자열**이라고 한다.)
+
+  ​	쿼리 문자열 : name, value로 구성된 문자열을 말한다.
+
+  ​	* GET 방식 단점
+
+  ​	(1) 전달되는 Query 문자열이 외부에 보여진다.
+
+  ​	(2) 전달되는 Query 문자열의 길이에 제한이 있다. (128b, 256b, 512b 등)
+
+  - GET 방식일 경우 : 직접 URL입력해서, <a>, location.href, <Form>태그의 method 속성값이 "GET"일 때
+
+  - POST 방식 : 요청하면서 서버에 전달할 name과 value로 구성된 데이터를 **요청 바디**에 담아서 전달한다.
+
+    - POST 방식 장점
+
+      (1) Query 문자열이 외부에 보여지지 않는다.
+
+      (2) 길이에 제한이 없다.
+
+    - POST 방식일 경우 : <Form>태그의 method 속성값이 "POST"일 때, Ajax 요청시 POST를 지정하면
+
+- Query 문자열 인코딩 규칙
+
+  [https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%EA%B0%80%EB%82%98%EB%8B%A4+123abc](https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=가나다+123abc)
+
+  (1) 영문자, 숫자 그리고 일부 특수문자를 제외한 문자들은 **%기호와 함께 16진수 코드값으로 변환**되어 전달된다.
+
+  (2) 공백은 '+' 기호(%20)로 변환되어 전달된다.
+
+  (3) name과 value로 구성되어야 하며, 여러 개가 전달될 때는 '&' 기호로 연결한다.
+
+  ex) id,passwd에 가나다를 입력한 경우 : id=%EA%B0%80%EB%82%98%EB%8B%A4&passwd=rkskek
+
+  ​	id에 ABC abc를 입력한 경우 : id=ABC%20abc&passwd=12345
+
+  encodeURIComponent
 
 - 크로스 오리진(Cross-Origin)
 

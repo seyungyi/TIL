@@ -1,5 +1,14 @@
 # [ Hadoop ]
 
+### < 정의 >
+
+- HDFS(저장) + MapReduce(파일처리) -> upgrade시킨 것이 Spark
+  - cluster
+    - 여러 대의 컴퓨터들이 연결되어 하나의 시스템처럼 동작하는 컴퓨터들의 집합을 말함
+  - HDFS(하둡분산파일시스템)
+    - **NameNode와 여러 개의 DataNode로 연결**된다. 명령어 또는 직접 프로그램을 만들어서(java) 사용한다. 파일을 block단위(128M 또는 128G)로 쪼개서 같은 rack에 2개 다른 rack에 1개를 저장한다.
+    - DataNode는 주기적으로 **하트비트**를 NameNode에 보내 살아있음을 알린다. **SecondaryNameNode**는 meta 데이터를 주기적으로 갱신해준다. NameNode가 실행되지 않는 것을 염려해 active NameNode, standby NameNode로 나눠 준비할 수도 있다.
+
 ### < 설치 전 준비사항 >
 
 - 가상머신 - 리눅스(centos) 설치
@@ -23,19 +32,68 @@
   - m3 = 00:50:56:39:04:5B
   - m4 = 00:50:56:34:82:DB
 
+## < Hadoop HDFS 명령어 >
+
+- Hadoop Document URL : [Document 이동](**https://hadoop.apache.org/docs/r2.7.7/hadoop-project-dist/hadoop-common/FileSystemShell.html**)
+
+  ```bash
+  # hdfs dfs -ls /[디렉토리명 또는 파일명]
+  지정된 디렉토리의 파일리스트 또는 지정된 파일의 정보를 보여준다.
+  
+  # hdfs dfs -lsr /[디렉토리명]
+  지정된 디렉토리의 파일리스트 및 서브디렉토리들의 파일 리스트도 보여준다.
+  
+  # hdfs dfs -mkdir /디렉토리명
+  지정된 디렉토리를 생성한다.
+  
+  # hdfs dfs -cat /[디렉토리/]파일
+  지정된 파일의 내용을 화면에 출력한다.
+  
+  # hdfs dfs -put 사용자계정로컬파일 HDFS디렉터리[/파일]
+  지정된 사용자계정 로컬 파일시스템의 파일을 HDFS 상 디렉터리의 파일로 복사한다.
+  
+  # hdfs dfs -get HDFS디렉터리의파일  사용자계정로컬 디렉터리[/파일]
+  지정된 HDFS상의 파일을 사용자계정 로컬 파일시스템의 디렉터리나 파일로 복사한다.
+  
+  # hdfs dfs -rm /[디렉토리]/파일
+  지정된 파일을 삭제한다.
+  
+  # hdfs dfs -rmr /디렉토리
+  지정된 디렉터리를 삭제. 비어 있지않은 디렉터리도 삭제하며 서브 디렉토리도 삭제한다.
+  
+  # hdfs dfs -tail /[디렉토리]/파일
+  지정된 파일의 마지막 1kb 내용을 화면에 출력한다.
+  
+  # hdfs dfs –chmod 사용자허가모드 /[디렉토리명 또는 파일명]
+  지정된 디렉토리 또는 파일의 사용자 허가 모드를 변경한다.
+  
+  # hdfs dfs -mv /[디렉토리]/old파일 /[디렉토리]/new파일
+  지정된 디렉토리의 파일을 다른 이름으로 변경하거나 다른 폴더로 이동한다.
+  ```
+
 ### < 하둡 완전 분산모드 설치 과정 >
 
 - 각 가상머신별 설정 변경
 
-  ```
-  - /etc/sysconfig/network-eno..... 를 vi에디터로 mac주소와 ip주소를 변경
+  ```bash
+  - /etc/sysconfig/network-eno..... 를 vi에디터로 mac주소와 ip주소를 변경(고정)
+  상단에 MAC주소 변경 필수
+  master : 192.168.111.120
+  slave1 : 192.168.111.130
+  slave2 : 192.168.111.140
+  slave3 : 192.168.111.150
+  
   - hostnamectl set-hostname [변경할 hostname명] 으로 변경(각 가상머신별로 다르게)
+  # hostnamectl set-hostname slave1
+  # hostnamectl set-hostname slave2
+  # hostnamectl set-hostname slave3
+  
   - /etc/hosts 를 vi에디터로 열어 가장 아래에 가상머신별로 ip주소와 hostname을 등록한다(모든 가상머신에
   ```
 
 - SSH Key생성을 통해 다른 시스템과 공유
 
-  ```
+  ```bash
   - 비밀번호 없이 로그인이 가능하도록 하는 것으로 다음 명령을 master 시스템에서 수행시켜서 공개키를 만든다.
   (참고 : 시큐어 셸(Secure Shell, SSH)은 네트워크 상의 다른 컴퓨터에 로그인하거나 원격 시스템에서 명령을 실행하고 다른 시스템으로 파일을 복사할 수 있도록 해 주는 응용 프로그램 또는 그 프로토콜을 가리킨다.)
   [hadoop@master ~]$ ssh-keygen -t rsa    
@@ -56,25 +114,25 @@
   Last login: 날짜
   [root@master ~]$ logout
   Connection to slave1 closed
-  ---> 이런식으로 등록한 모든 slave, master를 확인한다
+  ---> 이런식으로 등록한 모든 slave(slave 1, 2, 3), master를 확인한다
   ```
 
 - 홈디렉토리의 .bashrc 파일에 다음 내용을 추가한다.
 
-  ```
+  ```bash
   export HADOOP_HOME=/root/hadoop-2.7.7
   export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
   ```
 
 - Hadoop의 설정파일 디렉토리로 옮겨간다
 
-  ```
+  ```bash
   cd $HADOOP_HOME/etc/hadoop
   ```
 
 - Hadoop 폴더안에 설정파일에 다음 내용들을 추가한다
 
-  ```
+  ```bash
   - hadoop-env.sh 파일 끝에 다음 내용을 추가한다.
   export JAVA_HOME=/usr/local/java
   export HADOOP_HOME=/root/hadoop-2.7.7
@@ -97,7 +155,7 @@
 
 - 다음 내용들도 추가
 
-  ```
+  ```xml
   - core-site.xml 에 다음 내용을 편집한다.
   <configuration>
      <property>
@@ -156,13 +214,16 @@
      </property>
   </configuration>
   
-  12. slaves 파일을 다음 내용으로 편집한다.
+  - slaves 파일을 다음 내용으로 편집한다.
   Localhost를 지우고 slave1, slave2, slave3를 추가한다(반드시 행단위로 작성)
+  slave1
+  slave2
+  slave3
   ```
 
 - 하둡 시스템을 포맷한다(반드시 master에서만 수행해야한다)
 
-  ```
+  ```bash
   hdfs namenode -format
   ```
 
@@ -175,14 +236,13 @@
 - Hadoop의 HDFS 설치 완료여부를 확인한다
 
   ```
-  jps
-  
   - 데몬이 제대로 수행되었는지 확인한다. – jps 사용( JVM Process Status )
-      master : NameNode
-      slave1, slave2, slave3 : DataNode
-      slave1 : SecondaryNameNode
+  # jps
+  master : NameNode
+  slave1, slave2, slave3 : DataNode
+  slave1 : SecondaryNameNode
   ```
-
+  
 -  웹 페이지에서 저장된 블록 채크
 
   ```
@@ -197,7 +257,7 @@
 
 - 하둡 DHFS 영역에 폴더를 구축한다.
 
-  ```
+  ```bash
   강사시스템에서 파일 세개를 가져가서 리눅스의 sampledata 디렉토리에 넣고 압축파일은 압축을 푼다.
      ( 압축해제 명령 : bzip2 -kd 2008.csv.bz2 )
   # hdfs dfs -ls /
@@ -218,7 +278,7 @@
 
 - maven 변환
 
-  ```
+  ```xml
   1.java project 생성
   2.[configure] - [convert maven project]
   3.pom.xml에 dependency 추가
@@ -236,7 +296,7 @@
 
 - Java와 Hadoop 연동
 
-  ```
+  ```xml
   - hadoop File I/O Dependency
   <dependency>
      <groupId>org.apache.hadoop</groupId>
@@ -286,7 +346,7 @@
 
 - Hadoop HDFS 프로그램 구현
 
-  ```
+  ```java
   // 파일 복사
     Configuration config = new Configuration();
     FileSystem hdfs = FileSystem.get(config);
@@ -337,137 +397,50 @@
 
 - **[ HADOOP HDFS** **주요 API 정리  URL]**
 
-  ```
+  ```html
   <http://hadoop.apache.org/docs/r2.7.7/api/index.html?org/apache/hadoop/fs/package-summary.html>
   ```
 
-- MapReduce
-
-  - 정의 : 데이터를 개별로 가공 및 필터링하거나, 어떤 키값에 기반하여 데이터를 분류하거나, 분류한 데이터로 통계치를 계산하는 등, 수많은 데이터 처리에서 사용되고 있는 기법들을 일반화 하고 있다. 
-    map() 함수와 reduce() 함수는 한 번에 처리할 수 있는 데이터와 데이터 전달 방법 등이 다르다
-  - map() 함수 : 처리 대상 데이터 전체를 하나씩, 하나씩 처리한다. 처리대상 데이터간에 의존관계가 없고 독립적으로 실행 가능하며 처리나 순서를 고려하지 않아도 되는 처리에 적합하다.(전처리 즉, 변환작업) 
-    EX) **map : (K1, V1) -> list(K2, V2)**
-  - reduce() 함수 : 키와 연관된 복수의 데이터가 전달된다. 또한 reduce() 함수에 전달되는 데이터는 키값으로 정렬되어 있다. 그룹화된
-    복수의 데이터를 필요로 하는 처리 또는 순서를 고려해야 하는 처리에 적합하다.(그룹별 합계 즉 ,집계작업)
-    EX) **reduce : (K2, list(V2)) -> list(K3, V3)**
-  - MapReduce는 윈도우에서는 실행할 수가 없음 -> 리눅스 환경에서만 사용 가능
-
-- MapReduce 설정 및 수행
-
-  ```
-  <Map>
-  input : 원본데이터
-  output : 키/값
-  
-  <Reduce>
-  input : 맵에서 추출한 키/[값, .....]
-  output : 그룹화및 연산수행하여 최종 결과 : 키/값
-  
-  - mapred-site.xml에 property 추가(mapred-site.xml.template 복사해서 만들고 추가)
-  <configuration>
-     <property>
-        <name>mapreduce.framework.name</name>
-        <value>yarn</value>
-     </property>   
-  </configuration>
-  
-  - yarn-site.xml에 property추가
-  <configuration>
-  <!-- Site specific YARN configuration properties -->
-      <property>
-            <name>yarn.nodemanager.aux-services</name>
-            <value>mapreduce_shuffle</value>
-      </property>
-      <property>
-            <name>yarn.resourcemanager.hostname</name>
-            <value>master</value>
-      </property>
-      <property>
-            <name>yarn.resourcemanager.webapp.address</name>
-            <value>${yarn.resourcemanager.hostname}:8088</value>
-      </property>
-      <property>
-            <name>yarn.nodemanager.resource.memory-mb</name>
-            <value>4096</value>
-      </property>
-      <property>
-            <name>yarn.scheduler.minimum-allocation-mb</name>
-            <value>2048</value>
-      </property>
-  </configuration>
-  
-  - master의 mapreduce설정 파일들 slave에 모두 복사
-  # scp [복사할 파일] root@[호스트네임 즉, slave명]:/root/hadoop-2.7.7/etc/hadoop
-  
-  - yarn 실행
-  # start-yarn.sh
-  
-  - yarn으로 jar파일 안의 내용을 읽어서 작업 처리
-  ex) 
-  1. jar풀어 wordcount명령 실행하여 /output/test1에 저장
-  # yarn jar hadoop-mapreduce-examples-2.7.7.jar wordcount /edudata/fruit.txt /output/test2
-  2. test2파일 읽음
-  # hdfs dfs -cat /output/test2/part-r-00000
-  
-  - 파이어폭스로 접속하여 yarn 상태 확인
-  url = http://master:8088/cluster
-  ```
-
-- Eclipse에서 MapReduce를 수행하는 자바 소스
-
   ```java
-  - WordCountMapper Class 소스
-    public class WordCountMapper extends
-           Mapper<LongWritable, Text, Text, IntWritable> {
-    private final static IntWritable one = new IntWritable(1);
-    private Text word = new Text();   
-    public void map(LongWritable key, Text value, Context context)
-     				 throws IOException, InterruptedException {
-      StringTokenizer itr = new StringTokenizer(value.toString());
-      while (itr.hasMoreTokens()) {
-        word.set(itr.nextToken());
-        context.write(word, one);
-      }
-    }
-  }
+  org.ahache.hadoop.conf.Configuration
+  void addResource(String name)      	설정 리소스를 추가한다.
+  void set(String name, String value)      	key와 value 값을 설정한다.
   
-  - WordCountReduce Class 소스
-  public class WordCountReducer extends
-            Reducer<Text, IntWritable, Text, IntWritable> {
-    private IntWritable result = new IntWritable();
-    public void reduce(Text key, Iterable<IntWritable> values, Context context)
-      			       throws IOException, InterruptedException {
-      int sum = 0;
-      for (IntWritable val : values) {
-        sum += val.get();
-      }
-      result.set(sum);
-      context.write(key, result);
-    }
-  }
+  org.apache.hadoop.fs.Path
+  FileSystem getFileSystem(Configuration conf)      
+  NameNode에 의해 관리되는 FileSystem 객체를 리턴한다.
   
-  - WordCount Class Main 소스
-  public class WordCount {
-    public static void main(String[] args) throws Exception {
-      Configuration conf = new Configuration();
-      conf.set("fs.defaultFS", "hdfs://192.168.111.120:9000");
-     
-      Job job = Job.getInstance(conf);
+  org.apache.hadoop.fs.FileSystem
+  FSDataInputStream open(Path f)       
+  지정된 Path 객체에 대한 FSDatatInputStream 객체를 리턴한다.
+  FSDataOutputStream create(Path f)      
+  지정된 Path 객체에 대한 FSDataOutputStream 객체를 리턴한다.
+  FSDataOutputStream create(Path f, boolean overwrite) 
+  지정된 Path 객체에 대한 FSDataOutputStream 객체를 리턴한다.
+  FSDataOutputStream append(Path f)     
+  지정된 Path 객체에 대한 FSDataOutputStream 객체를 리턴한다.
+      
+  boolean delete(Path f, boolean recusive)      
+  경로에 해당되는 파일을 삭제한다.
+  boolean exists(Path f)      
+  경로가 존재하는지 여부를 반환한다.
+  static FileSystem get(Configuration conf)      
+  주어진 Configuration에 대한 FileSystem 객체를 리턴한다.
+  FileStatus getFileStatus(Path f)      
+  FileStatus 객체를 반환한다.
+  boolean isDirectory(Path f)      
+  경로가 디렉토리인지의 여부를 리턴한다.
+  boolean isFile(Path f)      
+  경로가 파일인지의 여부를 리턴한다.
+      
+  static FileSystem newInstance(Configuration conf)  
+  주어진 Configuration에 대한 FileSystem 객체를 리턴한다.
+  FSDataInputStream open(Path f)      
+  주어진 경로에 대한 FSDataInputStream 객체를 오픈한다.
   
-      job.setJarByClass(WordCount.class);
-      job.setMapperClass(WordCountMapper.class);
-      job.setReducerClass(WordCountReducer.class);
-  
-      job.setInputFormatClass(TextInputFormat.class);
-      job.setOutputFormatClass(TextOutputFormat.class);
-  
-      job.setOutputKeyClass(Text.class);
-      job.setOutputValueClass(IntWritable.class);
-  
-      FileInputFormat.addInputPath(job, new Path("/edudata/fruit.txt"));
-      FileOutputFormat.setOutputPath(job, new Path("/output/result"));
-  
-      job.waitForCompletion(true);
-    }
-  }
+  org.apache.hadoop.fs.FileStatus
+  int getBlockSize()       
+  파일의 블록사이즈를 반환한다.
+  long getLangth()       
+  파일의 길이(바이트 단위)를 리턴한다.
   ```

@@ -1,111 +1,281 @@
-# [ Servlet Programming ]
+- ```
+  Web Client & Web Server에서 다루는 언어
+  web Client : ex) Browser HTML, CSS, Javascript, Ajax, jQuery
+  
+  Web Server : Servlet(java로 구현하는 web server 프로그램), JSP, MVC패턴(servlet과 jsp를 함께사용), 				MyBatis, Spring Ioc, Spring MVC
+  ```
 
-- Java 언어로 구현하는 웹 서버 프로그래밍 기술
-  - 웹 서버 프로그래밍 기술=CGI : 웹서버 프로그래밍 기술의 표준( C, VisualBasic, Perl..) -> ASP, PHP
-    - 단점
-      1. 여러 클라이언트의  동시 요청이 있을 시 **멀티프로세스** 방식으로 처리 : 요청때마다 메모리에 프로세스가 실행되기에 많은 메모리를 할당하게 되어 속도가 저하
-    - 해결 방법
-      1. FastCGI 를 만듬( 미리 메모리에 프로세스를 할당시켜놓는다. 단, 구현이 어려움 )
-      2. Servlet 출현(1998, 9) : **멀티스레드** 방식( 하나의 메모리에 여러 스레드가 공유하는 방식 )
-      3. JSP 등장 : Servlet보다 쉬우며 수행상에서는 Servlet보다 간편함
+  # [ Servlet Programming ]
 
-| CGI, FastCGI                           | Wer Server | Tomcat                               |
-| -------------------------------------- | ---------- | ------------------------------------ |
-| Servlet<br />Servlet 엔진( Container ) | Web Server | Web Server + Servlet Container = WAS |
+  Servlet이란 **Java 언어로 구현하는 웹 서버 프로그래밍 기술**이다. 초기 웹 서버 프로그래밍 표준 기술은 CGI(Common Gateway Interface)였다. 언어로는 C, VisualBasic, Perl을 사용한다. CGI는 멀티프로세스 방식으로 처리하여 메모리를 많이 사용하는 단점을 가졌고 이러한 단점을 보완하기 위해 FastCGI가 나왔다. 후에 구현하기 어려운 FastCGI의 단점을 보완하기 위해 1998년 9월에 Servlet이 나왔다. Servlet은 **멀티스레드 방식**으로 처리한다. 즉 하나의 실행프로그램을 공유해서 수행한다.
 
-- MIME : HTTP와 같은 통신 프로토콜에서 사용되거나 전자우편에서 사용되는 인터넷 표준 포맷
+  ------
 
-- Query를 보내는 방법
-  - 기본 접속 URL에 ?속성=값 의 형식으로 접소하면 된다.
-    - (ex)http://localhost:8000/sedu/FirstServlet?name속성=값
-  
-- 서블릿의 특징
-  
-  - 응답을 할 시 객체를 전달받아서 해야한다(변수에 담아서)
-  - 자바와는 다르게 매핑이 필요 : 웹은 확장자를 통해 요청을 확인한다
-    1. 서블릿은 수행파일이 .class 확장자인데 서버에서 인식시키기 위해 등록과 매핑이라는 설정을 web.xml이라는 디스크립터 파일에 등록할 때마다 작성해야한다(WEB-INF 폴더에 생성)
-    2. 서블릿 3.0이후부터는 java소스 안에 애노테이션을 작성해 자동으로 매핑기능 설정 가능
-  
-  ## [ 1차 정리 ]
-  
-  - HttpServlet 클래스를 상속
-  
-    - Tomcat(Web Server(코요테) + Application Server(카탈리나) : WAS)
-  
-    - GET방식 : doGet() 오버라이딩
-  
-    - POSET방식 : doPost() 오버라이딩
-  
-    - 둘 다 사용 : doGet(), doPost(), `service()`-> 수행방식이 같다라는 의미
-  
-    - HttpServletRequest : 쿼리 문자열을 추출하는 용도. 요청을 보내온 클라이언트의 정보를 추출
-  
-      즉. 요청 정보를 추출하고자 할 때(쿼리 문자열) 사용
-  
-    - HttpServletResponse : 응답과 관련하여 응답스트림객체를 생성
-  
-       컨텐트 타입 설정(한글 폰트 깨짐 등의 설정을 위함)
-  
-  - 서블릿의 수행상의 특징
-  
-    - 서블릿은 단독으로 수행할 수 없음. 서블릿 컨테이너가 객체를 전달받아 수행하는 방식
-    - 한 번 메모리 할당(객체생성)이 되면 할당 상태를 게속 유지한다(메모리 재사용 방식)
-    - 여러 클라이언트 요청에 대해서 하나의 서블릿 객체를 공유해서 수행한다
-    - 각 시점마다 호출되는 메서드가 정해져 있다
-      - 객체 생성후 - init()
-      - 요청이 올 떄마다 - service() - doGet(), doPost()
-      - 객체 해제 전 - destroy()
-  
-  - 쿼리 문자열 추출 방법
-  
-    - name=value&name=value&name=value..........
-    - HttpServletRequest 객체의 getParameter() 사용
-      - String getParameter(String) : 리턴값이 value값 또는 null 또는 " "
-      - String[] getParameterValues(String) : value값들의 배열(예: checkbox 등) 또는 null
-    - GET 방식의 경우에는 Query 문자열 추출시 한글이 깨지지 않는다
-    - POST 방식은 깨짐 : 추출하기 전에 request.setCharacterEncoding("UTF-8"); 을 호출한 후 추출
+  ## 1.1 구조
 
-### < edu, sedu 라는 프로젝트 폴더 > 2019/06/17
+  Servlet은 단독으로 수행될 수 없으며 Tomcat(Web Server(코요테) + Application Server(카탈리나) : WAS)와 함께 사용해야한다. Web Server에서 Servlet클래스와 매핑되어있는지 확인하여 매핑되어있으면 Application Server로 넘겨 Servlet 클래스 객체를 생성해 수행한다.
 
-- Dynamic Web Project : Eclipse 측면에서의 프로젝트 명칭
-- Context : WAS (등록의 개수제한이 없지만 실행시간이 걸림)
-  - 각각의 컨테스트로 구축시 관리 및 유지보수가 수월해짐( 관리자폴더 수정시 학습폴더 수행 가능 )
-- Web Application : Developer 기준에서의 프로젝트 명칭
+  - CGI, FastCGI Servlet -> JSP
 
-### [ 세션 : HttpSession 객체 ]
+    ​	**Servlet 엔진(컨테이너)**
 
-- HttpSession 객체
+    Web Server	Web Server
 
-  - 요청을 보내온 클라이언트 단위로 객체가 한 개만 생성되는 객체로서 한 번 생성되면 해당 클라이언트가 종료될 때까지 객체가 유지된다
-  - 클라이언트별로 어떤 정보를 원하는 시각까지 유지하고 싶을 때 사용한다
+  Tomcat : Web Server + Servlet Container -> WAS(Web Application Server)
 
-  -  scope : 메모리에 저장장소가 만들어진 후 언제까지 유지되는가?
-    - page scope : 요청된 서버 프로그램이 수행하는 동안 유지 - 지역변수(가 가진다)
-    - request scope : 요청된 서버 프로그램이 수행하고 응답하기 전까지 유지 - HttpServletRequest 객체에 저장된 객체
-    - session scope : 세션이 유지되는 동안 - HttpSession 객체에 저장된 객체
-    - application scope : 서버가 기동되고 나서 종료될때 까지 - 멤버변수, ServletContext 객체에 저장된 객체
+  ## 1.2 수행 특징
 
-- 지역변수 : 수행하는 동안 지속되며 종료되면 사라진다. 클라이언트별로 각각 메모리 할당
-- 멤버변수 : 서버가 종료될 때까지 메모리 영역을 할당한다. 모든 클라이언트에 의해서 공유됨
-- 클라이언트 별로 개별적 저장, 원할 때까지 유지 ----> HttpSession 객체에 보관한다
-- HttpSession 객체는 언제까지 유지되는가?
-  1. 브라우저가 기동되어 있는 동안 유지
-  2. invalidate() 메소드가 호출되기 전까지
-  3. inactive interval 시간이 적용되기 전까지 - 30분
-- 객체로 만든다(배열 객체)
-  - 저장 : session.setAttribute("이름", 객체);
-  - 삭제 : session.removeAttribute("이름");
-  - 추출 : session.getAttribute("이름"); ---> 강제 형변환은 필수
+  (1) Servlet은 한 번 메모리가 할당(객체 생성)되면 할당된 상태를 계속 유지한다. (서버가 죽을 떄까지)
 
-### [ 파일 업로드 ] 2019/06/18
+  (2) 여러 클라이언트 요청에 대해서 하나의 서블릿 객체를 공유해서 수행한다.
 
-- (웹) 클라이언트에서 서버(HttpServer)에게  요청을 보낼 때  name=value로 구성된 쿼리 문자열을 전달할 수 있다(영문, 숫자, 일부특수문자는 그대로 전달, 나머지는 인코딩)
-  - name=value&name=value.......
-  - form 태그의 action 속성 -> application/x-www-form-urlencoded : POST 방식 요청시 namevalue설정에 대한 정보
-- 서버에게 전달하는 데이터에 클라리언트에 존재하는 파일을 첨부해서 요청하려는 경우에는 다른 형식으로 전달해야 함(applicaion방식은 X)
-  - multipart/form-data
+  (3) 각 시점마다 호출되는 메서드가 정해져 있다.
 
-### [ MVC 패턴 간략히 ]
+  ​	객체 생성후 - init()
 
-- 소프트웨어공학에서 사용되는 아키텍처 패턴
-- 사용자 인터페이스로부터 비지니스 로직을 분리해 시각적 요소와 이면에서 실행되는 비지니스 로직을 영향없이 쉽게 고칠 수 있게하는 패턴
+  ​	요청 올 때마다 - service() - doGet(), doPost()
+
+  ​	객체 해제전 - destory()
+
+  ## 1.3 Servlet 구현과 메서드
+
+  **HttpServlet 클래스**를 **상속**해야 하며 main() 메서드는 구현하지 않는다. 아래 메서드는 HttpServlet 클래스가 가지고 있는 메서드로 기능에 따라 선택적으로 오버라이딩하여 구현한다.
+
+  ```
+  @WebServlet("/test")
+  public class TestServlet extends HttpServlet {
+  	private static final long serialVersionUID = 1L;
+  
+  	public void init(ServletConfig config) throws ServletException {
+          //Servlet 클래스의 객체가 생성된 후 호출되는 메서드, 최초에 1번만 호출
+  	}
+  
+  	public void destroy() {
+          //Servlet 객체가 메모리에서 해제될 때 호출되는 메서드
+  	}
+  
+  	protected void service(HttpServletRequest request, 
+  			HttpServletResponse response) throws ServletException, IOException {
+          //요청방식에 관계없이 브라우저로부터 요청이 전달되면 호출되는 메서드
+  	}
+     
+  	protected void doGet(HttpServletRequest request, 
+  			HttpServletResponse response) throws ServletException, IOException {
+  		response.getWriter().append("Served at: ").append(request.getContextPath());
+          //브라우저로부터 GET 방식으로 요청이 전달되면 호출되는 메서드
+  	}
+  
+  	protected void doPost(HttpServletRequest request, 
+  			HttpServletResponse response) throws ServletException, IOException {
+  		doGet(request, response);
+          //브라우저로부터 POST 방식으로 요청이 전달되면 호출되는 메서드
+  	}
+  }
+  
+  //오류
+  //404 오류 : 요청된 파일을 못 찾겠다는 것으로 Servlet 클래스의 URL mappings명을 확인해야 한다.
+  //405 오류 : Servlet 요청방식에 문제가 있다는 것이다. doGet() 또는 doPost() 부분의 오류를 확인해야 한다.
+  //505 오류 : 실행오류이다.
+  ```
+
+  ## 1.4 Servlet 등록과 매핑
+
+  대부분의 웹 자원들은 파일의 확장자로 파일의 종류를 구분하지만 Servlet의 경우에는 불가능하기 때문이다. Servlet의 경우에는 컴파일을 통해서 .class 확장자를 갖는데 이미 Java Applet에서 사용하고 있어 사용할 수가 없다. 따라서 Servlet 클래스 파일의 경우에는 서버에서 Servlet프로그램으로 인식되어 처리되도록 등록과 매핑이라는 설정을 주어야한다. web.xml이라는 디스크립터 파일 또는 **Servlet 소스 안에 Java의 애노테이션 구문으로 선언**(Servlet 3.0부터 추가)하는 방법이 있다.
+
+  - Servlet 정의 애노테이션 : @WebServlet (Url mappings)
+  - 매핑명이 같은 Servlet 클래스가 여러 개 있으면 Tomcat 서버가 아예 구동되지 않는다. **Url mapping명은 유일**해야한다.
+  - Servlet API
+
+  ## 1.5 쿼리 문자열 추출 방법
+
+  쿼리 문자열은 웹 클라이언트에서 웹 서버에 요청을 보낼 때 추가로 전달하는 문자열이다. name=value&name=value... 형식의 키,값 쌍으로 이루어져있다. HttpServletRequest 객체의 **getParameter()**를 활용한다.
+
+  ```
+  String getParameter(String) : value 값 또는 null 또는 "" 리턴한다.
+  String[] getParameterValues(String) : value 값의 배열 또는 null 리턴한다.
+  ```
+
+  Get 방식의 경우에는 Query 문자열 추출시 한글이 깨지지 않는다. Post 방식의 경우에는 깨지므로 추출하기 전에 request.setCharacterEncoding("UTF-8"); 을 호출한 후 추출한다.
+
+  ```
+  request.setCharacterEncoding("UTF-8");
+  ```
+
+  ## 1.6 요청 및 응답 객체 생성
+
+  - **HttpServletRequest** : 클라이언트에서 전달되는 다양한 요청 정보를 Servlet 에 전달하는 기능을 수행한다. 쿼리 문자열을 꺼낼 때 사용한다.
+
+  - **HttpServletResponse** : 클라이언트의 응답에 사용되는 객체로 응답과 관련하여 응답스트림 객체를 생성한다. 컨텐트 타입을 설정할 수 있다.
+
+  - Servlet 객체가 생성된 상태인지에 따른 수행흐름
+
+    (1) **Servlet을 객체 생성하여 수행**시킬 때
+
+    ​	Servlet 클래스를 로딩하여 객체 생성 -> Servlet 객체의 init() 메서드 호출 -> Servlet 객체의 service() 메서드 호출
+
+    (2) **이미 생성된 Servlet을 객체 수행**시킬 때
+
+    ​	Servlet 객체의 service() 메서드 호출
+
+    (3) **Servlet 객체가 메모리에서 해제**될 때의 처리
+
+    ​	Servlet 객체의 destroy() 메서드 호출
+
+  ## 1.7 요청 재지정 (Forward와 Redirect)
+
+  요청 재지정이란 클라이언트에서 요청한 Servlet의 응답 대신 다른 자원(Servlet, JSP, HTML 등)의 수행 결과를 클라이언트에 대신 응답하는 기능이다. 요청 재지정에는 Forward와 Redirect하는 방법이 있다.
+
+  - **Forward** 방식
+
+    ```
+    @WebServlet("/forward") 
+    //http://localhost:8000/sedu/forward 주소가 출력된다.
+    public class ForwardServlet extends HttpServlet {
+    	private static final long serialVersionUID = 1L;
+    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws 	ServletException, IOException {
+    		System.out.println("ForwardServlet 수행");
+    		RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp"); 
+    		RequestDispatcher rd = request.getRequestDispatcher("/sedu/welcome.jsp"); //오류발생 
+    		RequestDispatcher rd = request.getRequestDispatcher("https://naver.com/"); //오류발생
+    		//RequestDispatcher 인터페이스이다.
+            //동일한 프로젝트 안에서만 forward하기 때문에 자동으로 컨텍스트패스명을 붙여준다.
+            //따라서 컨텍스트패스명을 따로 주면 안된다!
+    		rd.forward(request, response);
+    	}
+    }
+    ```
+
+  - **Redirect** 방식
+
+    ```
+    //http://localhost:8000/sedu/forward 주소가 출력된다.
+    public class RedirectServlet extends HttpServlet {
+    	private static final long serialVersionUID = 1L;
+    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    		System.out.println("RedirectServlet 수행");
+    		//response.sendRedirect("/sedu/welcome.jsp");
+    		//response.sendRedirect("http://www.naver.com/"); //다른 웹사이트의 자원을 요청 재지정가능
+    		response.sendRedirect("/edu/first.html");
+    	}
+    }
+    ```
+
+  <<<<<<< HEAD
+
+  ## edu, sedu
+
+  - Dynamic Web Project : Eclipse
+  - Context : WAS (Context 단위로 관리한다.)
+  - Web Application : Develper
+
+  ## Session [HttpSession 객체]
+
+  =======
+
+  - edu, sedu
+    - Dynamic Web Project : Eclipse
+    - Context : WAS (Context 단위로 관리한다.)
+    - Web Application : Develper
+
+  ## 1.8 Session [HttpSession 객체]
+
+  > > > > > > > c55cccca7c5bfb4ba51ce2527593e568ba9909dd
+
+  **HttpSession 객체**는 요청을 보내온 클라이언트 단위로 객체가 한 개만 생성되는 객체이다. 한 번 생성되면 해당 클라이언트가 종료될 때까지 객체가 유지된다. 클라이언트별로 어떤 정보를 원하는 시간까지 유지하고 싶을 때 사용한다.
+
+  ex) 클라이언트가 주문할 때까지 또는 로그아웃할 때까지 선택한 정보를 유지
+
+  - Scope : 메모리에 저장장소가 만들어진 후 언제까지 유지되느냐를 말한다.
+
+    ```
+    * page scope 
+    	요청된 서버 프로그램이 수행하는 동안 유지된다. ex)지역변수
+    * request scope  
+    	요청된 서버 프로그램이 수행하고 응답하기 전까지 유지된다.
+    				HttpServletRequest 객체에 저장된 객체
+    * session scope 
+    	세션이 유지되는 동안(클라이언트가 살아있는 동안)
+    				HttpServlet 객체에 저장된 객체
+    * application scope 
+    	서버가 기동되고 나서 종료될 때까지 ex) 멤버변수, ServletContext 객체에 저장된 객체
+    ```
+
+  - 지역변수 : 수행하는 동안, 클라이언트별로 각각 메모리 할당
+
+  - 멤버변수 : 서버가 종료될 때까지 메모리영역을 할당한다. 모든 클라이언트에 의해 공유된다.
+
+  - 클라이언트 별로 개별적 저장, 원할 때까지 유지하고 싶을 때 -> **HttpSession 객체에 보관**한다.
+
+  - 개별적으로 증가된다.
+
+  - HttpSession 브라우저가 기동되어 있는 동안
+
+  - invalidate() 메서드가 호출되기 전까지
+
+  - **쿠키** : 서버가 클라이언트를 잊지 않기 위해서 브라우저에 보관하는 name,value 쌍 데이터를 말한다.
+
+  - 브라우저에 쿠키가 있으면 그 session id값에 해당하는 객체를 생성하고 없으면 session id를 생성한다.
+
+  - session 객체는 고유의 id값을 가지고 브라우저가 살아있는동안 유지된다.
+
+  - session 생성,저장,삭제,추출
+
+    (1) 객체로 만든다. (배열객체)
+
+  <<<<<<< HEAD 	- request.getSession(), request.getSession(true) : HttpSession이 존재하면 현재 HttpSession
+
+  # 	- request.getSession(false)
+
+  ​	- request.getSession(), request.getSession(true) : HttpSession이 존재하면 현재 HttpSession을 반환하고 존재하지 않으면 새로운 Session 객체를 사용할 수 있도록 준비해준다.
+
+  ​	- request.getSession(false) : HttpSession이 존재하면 현재 HttpSession을 반환하고 존재하지 않으면 새로운 Session을 생성하지 않고 null을 반환한다.
+
+  > > > > > > > c55cccca7c5bfb4ba51ce2527593e568ba9909dd
+
+  (2) 저장 : session.setAttribute("이름",객체)
+
+  (3) 삭제 : session.removeAttribute("이름")
+
+  # <<<<<<< HEAD (4) 추출 : session.getAttribute("이름") //return 값이 object이므로 강제 형변환이 필수이다.
+
+  (4) 추출 : session.getAttribute("이름") //return 값이 object이므로 강제 형변환이 필수이다.
+
+  - 상태 정보 관리
+
+    - **Cookie** 기술
+
+      상태정보를 클라이언트에 저장하는 방법을 말한다. ex) 계정 저장, 하룻동안 광고 안보게 하기
+
+    - **HttpSession** 기술
+
+      클라이언트마다 만들어지는 HttpSession 객체에 상태정보를 저장하는 방법을 말한다. 보안이 중요한 정보를 저장할 수 있으며 브라우저가 구동되어있는 동안만 저장을 유지할 수 있다. 내부적으로 Cookie도 사용한다.
+
+      cf) 상태정보를 계속 유지하고 싶을 경우 : Database에 저장
+
+  ## referer
+
+  요청헤더정보이다. 최초의 루트를 가리킨다. 정해진 루트를 통해 왔는지 다른 사이트를 거쳐왔는지 알 수 있다.
+
+  ```
+  <a href='" + request.getHeader("referer") + "'>상품선택화면</a> //http://localhost:8000/sedu/html/productlog2.html
+  <a href='"+request.getRequestURL()+"'>상품비우기</a>
+  //http://xx.xx.xxx.xxx:8000/sedu/basket2
+  ```
+
+  ## 1.9 파일 업로드
+
+  클라이언트(브라우저)에서 서버에게 요청을 보낼 때, name=value&name=value...로 구성된 쿼리 문자열을 전달할 수 있다. (영문,숫자, 일부특수문자는 그대로 전달, 나머지는 %기호와 함께 16진수로 인코딩된다.)
+
+  --->name=value&name=value... (**application/x-www-form-urlencoded**)
+
+  서버에게 전달하는 데이터에 클라이언트에 존재하는 파일을 첨부해서 요청하려는 경우에는 다른 형식으로 전달해야 한다.
+
+  ---> **multipart/form-data** : 데이터를 여러 개의 파티션으로 나눠서 보내라는 것이다. ex)이메일
+
+  **@MultipartConfig**
+
+  클라이언트에서 전송되는 multipart/form-data 형식의 데이터를 처리하는 Servlet이 정의해야 하는 애노테이션이다.
+
+  Collection<Part> parts = request.getParts();
+
+  String filename = part.getSubmittedFileName(); //실제 클라이언트가 전송한 파일이름을 추출한다.
