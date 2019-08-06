@@ -19,6 +19,13 @@
 - Hive는 데이터 포맷과 위치를 가지고 있는 metasotre 를 가지고 있음
   - 질의문 자체는 파일시스템(HDFS)에 저장되어 있는 데이터에게 질의 함
 
+### < HIVE Source 참고 >
+
+- <https://github.com/ysgo/Web> 에서 springedu 프로젝트 폴더
+- HIVE라는 이름으로 된 DAO, Controller, View 파일 참고
+- VO 예제는 FruitsVO 또는 SubwayVO 를 사용
+- Subway 예제 사용시 subway.html 에서 시작하면 됨
+
 ## < HIVE 설치와 환경설정 >
 
 1. tools 디렉토리로 옮겨가서 다음 명령을 수행하고 HIVE 프로그램을 내려 받는다.
@@ -198,9 +205,12 @@
       	<constructor-arg name="username" value="root"/>
       	<constructor-arg name="password" value="password"/>
        </bean>
+    
+    -> <bean …./> 를 <beans:bean …./> prefix 형식으로 변경
+    -> 만약 톰캣서버 기동시 Log4J 에러가 났다면, Log4J서버에러로 추정되기에 pox.xml에 등록한 Log4J-api와 Log4J-core 버전을 중간버전인 2.8로 수정
     ```
 
-- 소스
+- 소스 
 
   ```java
   Class.forName("org.apache.hive.jdbc.HiveDriver");
@@ -222,3 +232,11 @@
   stmt.close();
   conn.close();
   ```
+
+- HIVE에서 파티셔닝을 활용하기(대량의 정보를 처리할 때)
+
+  ```
+  
+  ```
+
+  
