@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exam13.html</title>
+<meta charset="utf-8" />
+<script src="d3.v3.min.js"></script>
+</head>
+<body>
+<h2>x축 눈금을 그려보자...</h2>
+<hr>
+<svg id="myGraph" width="500" height="500"></svg>
+<script>
+d3.csv("testdata.csv", function(error, data){
+	console.log(data);
+	var x = [];
+	for(var obj in data) {
+		x.push(parseInt(data[obj].x));
+	}
+	displayChart(x);
+})
+function displayChart(x) {
+	var xSB = d3.extent(x); 
+	var scaleX = d3.scale.linear().domain(xSB).range([0, 300]);
+	
+	d3.select("#myGraph")
+	.append("g")	
+	.attr("transform", "translate(20, "+((1+x.length) * 30+5)+")")	// 표시 위치 조정
+	.call(d3.svg.axis()	// call()로 눈금을 표시할 함수를 호출
+		.scale(scaleX)  // 스케일을 적용		
+		.ticks(5)
+		//.outerTickSize(20)
+		//.innerTickSize(20)
+		//.tickValues(d3.range(0, 30, 6))
+        //.tickPadding(20)
+        .orient("bottom") 
+    )
+	
+    d3.select("#myGraph").selectAll("path")
+        .style("stroke", "black")
+        .style("fill", "none")
+	d3.select("#myGraph").selectAll("line")
+        .style("stroke", "red")   
+}
+</script>
+</body>
+</html>

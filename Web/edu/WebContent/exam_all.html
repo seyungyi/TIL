@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Introduce Gunsan</title>
+<style>
+#clear {
+ clear: both;
+}
+header {
+	padding-bottom: 20px;
+	margin-bottom: 35px;
+	text-align: center;
+	color: green;
+	text-shadow: 3px 3px 5px #005;
+	background-image: linear-gradient(30deg, skyblue, orange, brown);
+}
+#weather {
+	float: left;
+}
+header nav a {
+	padding: 50px;
+	text-decoration: none;
+	color: blue;
+}
+header nav a:hover {
+	font-weight: bold;
+}
+#introduce article {
+	margin: 30px auto;
+	padding: 15px;
+	border: 2px solid brown;
+	border-radius: 15px;
+}
+#myself h3 {
+	margin: 12px 12px 5px 5px;
+	color: green;
+	font-size: 2em;
+	font-weight: bold;
+}
+#myself ul {
+	margin: 15px;
+	font-size: 1em;
+	font-weight: bold;
+}
+#book h2 {
+	margin: 12px 12px 5px 5px;
+	color: #663399;
+	font-size: 2em;
+	font-weight: bold;
+}
+#book table,th,td {
+	margin: 15px;
+	padding: 5px 40px 5px 10px;
+	border-collapse: collapse;
+	font-weight: bold;
+}
+#book th {
+	font-size: 1.25em;
+	background-color: #F4A460;	
+}
+#location h2 {
+	color: #1E90FF;
+	font-size: 2em;
+	font-weight: bold;
+}
+#location h2 span {
+	color: #800080;
+}
+#location p {
+	margin : 15px auto;
+	font-size: 1em;
+	font-weight: bold;
+}
+#location figure {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+#location figure:hover {
+	opacity: 0.5;
+}
+#location figure img {
+	max-width: 80%;
+}
+aside {
+	margin: 30px auto;
+	padding: 15px;
+	border: 2px solid brown;
+	border-radius: 15px;
+}
+aside video {
+	width: 60%;
+	padding-left: 20%;
+	padding-right: 20%;
+}
+input {
+    margin: 5px;
+}
+#mycard{
+	padding: 7px 2px 3px 15px;
+	margin-left: 5%;
+	width: 90%;
+	border: 2px solid brown;
+	border-radius: 15px;
+	font-weight: bold;
+}
+#mycard > article {
+	float:left;
+	width: 500px;
+	height: 300px;
+	margin: 10px;
+	border: 1px solid #999999;
+}
+#mycard article > img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    padding: 1px;
+}
+#mycard > button {
+	 background: linear-gradient(45deg, blueviolet, aquamarine);
+}
+footer {
+	margin: 10px;
+	padding: 30px; 
+	color: white;
+	background-color: black;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<header>
+		<div>
+		<output id="weather">				
+		</output>		
+		</div>
+		<h1>HTML5 학습</h1>
+		<nav id="nav">
+			<a href="http://www.w3.org/">W3C</a>
+			<a href="http://www.w3schools.com/">W3SCHOOLS</a>
+			<a href="http://jquery.com//">jQuery</a>
+		</nav>
+	</header>
+	<section id="introduce">
+	<article id="myself">
+		<h3>나의 소개</h3>
+		<ul>
+			<li>이름 : YS</li>
+			<li>별명 : seungyi</li>
+			<li>관심기술 : BackEnd Technology and Data Analysis</li>
+			<li>취미 : Music, Movie, HealthTraining, Reading</li>
+		</ul>
+	</article>
+	<article id="book">
+		<h2>올해 재미있게 읽은 책</h2>
+		<table border="1">
+			<tr><th>제목</th><th>장르</th></tr>
+			<tr><td>무지개 곶의 찻집</td><td>현대소설</td></tr>
+			<tr><td>아주 작은 습관의 힘</td><td>자기계발서</td></tr>
+			<tr><td>미라클모닝</td><td>자기계발서</td></tr>
+		</table>
+	</article>
+	<article id="location">
+		<h2>자랑하고싶은 <span>우리동네</span>의 아름다운 곳</h2>
+			<p>해질녘 물결이 반짝이는 아름다운 모습 때문에 은파라 불리는 이곳은 조선조 이전에 축조된 것으로 고산자 김정호 선생의 대동여지도에도 표시되어 있는 역사 깊은 곳이다.</p>
+			<p>은파관광지는 본래 농업용 저수지였으나 저수지를 중심으로 인근의 작은 산들이 포함하여 2,578,524평방미터가 1985년 국민관광지로 지정되었고 순환도로가 완공되어 누구나 자동차를 타고 아흔아홉 구비라는 은파관광지의 주변을 모두 구경할 수 있게 되었다.</p>
+			<p>봄철이 되면 화사한 벚꽃길로 유명하여 친구,가족,연인들의 사랑을 받고 있다.</p>
+			<figure>
+			<img src="http://www.gunsan.go.kr/upload_data/board_data/TOUR/150598432192253.jpg">
+			<figcaption>
+				<p>군산 은파 호수공원</p>
+			</figcaption>
+		</figure>
+	</article>
+	</section>
+	<aside>
+		<video src="http://70.12.113.174:8000/edu/images/gunsan_video.mp4" controls loop>
+		</video>
+	</aside>
+	<section id="mycard">
+		<button onclick="save()">저장하기</button>
+		<button onclick="restore()">읽어오기</button>
+		<button onclick="remove()">지우기</button>
+		<br>
+		배경 칼라 설정 : <input id="background" type="color" onchange="backgroundColor()">  <!--onchange 변경 value값 전달-->
+		테두리 칼라 설정 : <input id="border" type="color" onchange="borderColor()"><br>
+		메시지 칼라 설정 : <input id="textColor" type="color">
+		입력 메시지 : <input id="msg" type="text"><br>
+		<article id="dropbox">
+		    <canvas id="canvas" width="500" height="300" onclick="displayMsg(window.event)"></canvas>   <!--window.event로 이벤트발생-->
+		</article>
+		<article id="imgbox">
+		        <img crossorigin="*" id="image1" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">
+		        <img crossorigin="*" id="image2" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">
+		        <img crossorigin="anonymous" id="image3" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">
+		        <img crossorigin="anonymous" id="image4" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">
+		        <img crossorigin="anonymous" id="image5" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">
+		        <img crossorigin="anonymous" id="image6" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">
+		        <img crossorigin="anonymous" id="image7" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">  
+		        <img crossorigin="anonymous" id="image8" src="https://2.bp.blogspot.com/-ktKspUTP-wY/XDfb7EzZvEI/AAAAAABAP3U/DVj4fIVXZWw7aYTqAaSflNHrtZOyiCdjQCLcBGAs/s1600/AW2926832_03.gif">
+		</article>
+	</section>
+	<div id="clear"></div>
+	<footer>
+		<i>이 문서는 YS에 의해 HTML5와 CSS3 기술을 사용하여 2019년 5월 27일에 작성하였습니다.(ver1.0)</i>
+	</footer>
+<script>
+window.onload = function() {
+	var request = new XMLHttpRequest();
+	var output = document.getElementById("weather");
+	request.onreadystatechange = function() {
+		if(request.readyState == 4) {
+			if(request.status == 200) {
+				var str = request.responseText;
+				var jsObj = JSON.parse(str);
+				output.innerHTML += "<img width='120px' height='100px' src=http://ip:port/edu/" + jsObj.img + ">";
+			}
+		}
+	}
+		request.open("GET", "http://ip:port/edu/ajaxexam/content/weather.jsp", true);
+		request.send();
+}
+</script>
+<script>
+    var drop, canvas;
+    function initiate(){
+        var images=document.querySelectorAll('#imgbox > img');
+        for(var i=0; i<images.length; i++){
+            images[i].addEventListener('dragstart', dragged, false);
+            images[i].addEventListener('dragend', ending, false);
+        }
+        drop=document.getElementById('canvas');
+        canvas=drop.getContext('2d');
+        
+        drop.addEventListener('dragover', function(e){ e.preventDefault(); }, false);
+        drop.addEventListener('drop', dropped, false);
+	}
+	function ending(e){
+        elem=e.target;
+	}
+	function dragged(e){
+        var elem=e.target;
+        e.dataTransfer.setData('aa', elem.getAttribute('id'));
+        e.dataTransfer.setDragImage(e.target, 0, 0);
+	}
+	function dropped(e){
+        e.preventDefault();
+        var id=e.dataTransfer.getData('aa');
+        var elem=document.getElementById(id);
+        
+        var posx=e.pageX-drop.offsetLeft;
+        var posy=e.pageY-drop.offsetTop;
+        
+        canvas.drawImage(elem,posx,posy, 120, 120);
+    } 
+    
+    window.addEventListener('load', initiate, false);
+    
+    function save() {  
+        localStorage.setItem('canvas', drop.toDataURL());
+    }
+    function remove() {
+        canvas.clearRect(0, 0, 580, 450);
+    }
+    function restore() { 
+        var img = new Image();
+        img.src = localStorage.getItem("canvas");
+        img.onload = function() {
+            canvas.drawImage(img, 0, 0);
+        }
+    }
+    function backgroundColor() {
+        canvas.fillStyle = document.getElementById("background").value;
+        canvas.fillRect(0, 0, 500, 300);
+    }
+    function borderColor() {
+        canvas.strokeStyle = document.getElementById("border").value;
+        canvas.lineWidth = 20;
+        canvas.strokeRect(0, 0, 500, 300);
+    }
+    function displayMsg(e) {
+        var x = e.offsetX;
+        var y = e.offsetY;
+        var msg = document.getElementById("msg").value;
+        canvas.fillStyle = document.getElementById("textColor").value;
+        canvas.font = '30pt D2';
+        canvas.fillText(msg, x, y);
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WebSocket</title>
+  <link rel="stylesheet" href="websocket.css">
+  <script>
+  function initiate(){
+	  databox=document.getElementById('databox');
+	  var button=document.getElementById('button');
+	  button.addEventListener('click', send, false);
+
+	  socket=new WebSocket("ws://localhost:8000/sedu/TheWebSocketServlet");
+	  socket.addEventListener('open', opened, false);
+	  socket.addEventListener('message', received, false);
+	  socket.addEventListener('close', closed, false);
+	  socket.addEventListener('error', error, false);
+	}
+	function opened(){
+	  databox.innerHTML+='CONNECTION OPENED<br>';	
+	}
+	function received(e){
+	  databox.innerHTML+='Received: '+e.data+'<br>';
+	}
+	function closed(){
+	  databox.innerHTML+='CONNECTION CLOSED<br>';
+
+	  var button=document.getElementById('button');
+	  button.disabled=true;
+	}
+	function error(){
+	  databox.innerHTML+='ERROR<br>';
+	}
+	function send(){
+	  var command=document.getElementById('command').value;
+	  if(command=='close'){
+	    socket.close();
+	  }else{
+	    socket.send(command);
+	  }
+	}
+	window.addEventListener('load', initiate, false);
+  </script>
+</head>
+<body>
+  <section id="formbox">
+    <form name="form">
+      <p>Command:(close 입력시 연결종료)<br><input type="text" name="command" id="command"></p>
+      <p><input type="button" name="button" id="button" value="Send"></p>
+    </form>
+  </section>
+  <section id="databox"></section>
+</body>
+</html>
+

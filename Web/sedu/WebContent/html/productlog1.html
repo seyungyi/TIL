@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+div {
+	width: 100%;
+}
+img {
+	width: 15%;
+	padding: 10px;
+	margin: 15px;
+	border: 1px solid black;
+	box-shadow: 5px 5px 5px;
+}
+</style>
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script>
+$(document).on('ready', function() {
+	$("img").on("click", function(){
+	    var id_check = $(this).attr("id");
+		$.getJSON('/sedu/basket1?pid='+id_check, function(data) {
+			$('output').each(function(key, value) {
+				$(value).text(data.pid);			
+			});
+		});
+	});
+});
+// 답 JavaScript 사용시
+/*  function getAjax(id) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function() {
+		if(xhr.status == 200) {
+			var data = xhr.responseText;
+			var obj = JSON.parse(data);
+			var dom = document.getElementsByTagName("output")[0];
+			alert(obj.pid);
+			dom.textContent = obj.pid;
+		}
+	}
+	xhr.open("GET", "/sedu/basket1?pid="+id, true);
+	xhr.send();
+}  */
+// 답 jQuery 사용시
+/* function getAjax(id) {
+	$.getJSON("/sedu/basket1?pid="+id, function(jsonDom) {
+		alert(jsonDom.pid);
+		$('output').each(function(index, dom) {
+			alert(index + "-" + dom)
+			$(dom).text(jsonDom.pid);
+		});
+	});	
+} */
+</script>
+</head>
+<body>
+<h1>원하는 상품을 클릭해 주세요!!! 마구마구^^<output></output></h1>
+<hr>
+<div> 
+	<!-- <img onclick="getAjax('p001')"src="http://www.thessan.com/shopimages/thessancom/0060020003472.jpg?1494489326">
+	<a href="/sedu/basket1?pid=p002"><img src="https://file.namu.moe/file/8bc9e381797334eb33da66e3ba501be1440493a7b849b11cdd862732a6e8ff16b5aa2bac47c46928888608527bd0f735"></a>
+	<a href="/sedu/basket1?pid=p003"><img src="http://item.ssgcdn.com/14/43/41/item/0000007414314_i2_1200.jpg"></a>
+	<a href="/sedu/basket1?pid=p004"><img src="http://img.danawa.com/prod_img/500000/627/495/img/7495627_1.jpg?shrink=500:500&_v=20190320103325"></a>
+	<a href="/sedu/basket1?pid=p005"><img src="http://image.lottemart.com/lim/static_root/images/prodimg/88011/8801117544119_1_640.jpg"></a>
+	<a href="/sedu/basket1?pid=p006"><img src="https://thumbnail11.coupangcdn.com/thumbnails/remote/230x230ex/image/product/image/vendoritem/2018/10/02/3652504440/cfd80a77-9dbd-4511-826f-5321f7365356.jpg"></a>
+	<a href="/sedu/basket1?pid=p007"><img src="http://image.auction.co.kr/itemimage/18/75/d9/1875d96396.jpg"></a>
+	<a href="/sedu/basket1?pid=p008"><img src="http://img.danawa.com/prod_img/500000/896/578/img/3578896_1.jpg?shrink=500:500&_v=20170317094030"></a>
+	<a href="/sedu/basket1?pid=p009"><img src="http://gdimg.gmarket.co.kr/1273332915/still/600?ver=1519194061"></a>
+	<a href="/sedu/basket1?pid=p010"><img src="http://www.bestallcvs.com/newhome_data/item/8668223998_l1"></a> -->
+	<img id="p001" src="http://www.thessan.com/shopimages/thessancom/0060020003472.jpg?1494489326">
+	<img id="p002" src="https://file.namu.moe/file/8bc9e381797334eb33da66e3ba501be1440493a7b849b11cdd862732a6e8ff16b5aa2bac47c46928888608527bd0f735">
+	<img id="p003" src="http://item.ssgcdn.com/14/43/41/item/0000007414314_i2_1200.jpg">
+	<img id="p004" src="http://img.danawa.com/prod_img/500000/627/495/img/7495627_1.jpg?shrink=500:500&_v=20190320103325">
+	<img id="p005" src="http://image.lottemart.com/lim/static_root/images/prodimg/88011/8801117544119_1_640.jpg">
+	<img id="p006" src="https://thumbnail11.coupangcdn.com/thumbnails/remote/230x230ex/image/product/image/vendoritem/2018/10/02/3652504440/cfd80a77-9dbd-4511-826f-5321f7365356.jpg">
+	<img id="p007" src="http://image.auction.co.kr/itemimage/18/75/d9/1875d96396.jpg">
+	<img id="p008" src="http://img.danawa.com/prod_img/500000/896/578/img/3578896_1.jpg?shrink=500:500&_v=20170317094030">
+	<img id="p009" src="http://gdimg.gmarket.co.kr/1273332915/still/600?ver=1519194061">
+	<img id="p010" src="http://www.bestallcvs.com/newhome_data/item/8668223998_l1">
+</div>
+</body>
+</html>

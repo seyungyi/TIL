@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>exercise8</title>
+</head>
+<body>
+<script src="util.js"></script>
+<script>
+var obj = {
+					tag : "h1",
+					color : "pink",
+					msg : "핑크색입니다."
+				} 
+function printObject(p){
+	if(typeof p == "object")
+		writeColor( p.msg,p.tag, p.color);
+	else
+		return;
+}
+var at=new Array("h2","h3","h4","h5");
+var ac=new Array("red","yellow","blue","lime");
+var am=new Array("빨강색입니다.","노랑색입니다.","파란색입니다.","라임색입니다.");
+
+for(var i=0;i<=ac.length;i++){
+	printObject(obj);
+	obj.tag=at[i];
+	obj.color=ac[i];
+	obj.msg=am[i];	
+} 
+</script>
+</body>
+</html>

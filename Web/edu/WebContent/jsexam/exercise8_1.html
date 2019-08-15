@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src = "util.js"></script>
+<script>
+	function printObject(p){
+		if (typeof p == 'object'){
+			writeColor(p['msg'], p['tag'], p['color']);
+		}	
+	}
+	var obj1 = { tag : "h1", color : "red", msg : "aaa"};
+	printObject(obj1);
+	var obj2 = { tag : "h2", color : "blue", msg : "bbb"};
+	printObject(obj2);
+	var obj3 = { tag : "h3", color : "yellow", msg : "ccc"};
+	printObject(obj3);
+	var obj4 = { tag : "h4", color : "green", msg : "ddd"};
+	printObject(obj4);
+	var obj5 = { tag : "h5", color : "black", msg : "eee"};
+	printObject(obj5);
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+/*
+ * (1) 객체 생성시 이름, 년, 월, 일을 아규먼트로 받는다. 
+ (2) 이름, 년, 월, 일을 객체의 속성이 되게 초기화 한다. (생성자 안에서)
+ (3) 다음에 제시된 기능을 지원하는 
+      getTotalDays(), getKorDay() 메서드를 생성하여 
+      DayInfo 라는 생성자 함수의 prototype 영역에 
+      저장한다.
+
+      getTotalDays() : "XX님은 태어난지 XXX일 되었어요."를 리턴
+      getKorDay() :  "XX님은 X요일에 태어났어요."를 리턴
+ 
+ (4) DayInfo 객체를 3개 정도 생성하여 변수에 담고 
+      각각의 getTotalDays(), getKorDay() 메서드의 
+      호출결과를 <h3> 태그와 함께 도큐먼트 영역에 출력한다.*/
+function DayInfo(v1, v2, v3, v4) {
+     this.name = v1;
+     this.year = v2;
+     this.month = v3-1;
+     this.day = v4;
+}
+DayInfo.prototype.getTotalDays = function() {
+     var currentDate = new Date();
+     var birthDate = new Date(this.year, this.month, this.day);
+     var operateDate = Math.floor((currentDate - birthDate) / (24*60*60*1000));
+     return operateDate;
+}
+DayInfo.prototype.getKorDay = function() {
+     var reuslt=null;
+     var date = new Date(this.year, this.month, this.day);
+     switch(date.getDay()) {
+          case 0: result='일'; break;
+          case 1: result='월'; break;
+          case 2: result='화'; break;
+          case 3: result='수'; break;
+          case 4: result='목'; break;
+          case 5: result='금'; break;
+          default: result='토';
+     }
+     return result;
+} ;
+var arr = new Array();
+var fruit1 = new DayInfo('귤', '2019', '5', '31');
+var fruit2 = new DayInfo('바나나', '2018', '9', '5');
+var fruit3 = new DayInfo('거봉', '2017', '7', '15');
+arr.push(fruit1);
+arr.push(fruit2);
+arr.push(fruit3);
+for(var i in arr) {
+     document.write("<h3>" + arr[i].name + "님은 태어난지 " + arr[i].getTotalDays() + "일 되었어요.</h3>");
+     document.write("<h3>" + arr[i].name + "님은 " + arr[i].getKorDay() + "요일에 태어났어요.</h3>");
+}
+</script>
+</body>
+</html>

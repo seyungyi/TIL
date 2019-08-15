@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>정적 속성／정적 메소드</title>
+</head>
+<body>
+<pre>
+<script>
+<h2>정적 속성／정적 메소드</h2>
+<hr>
+function Area() {		
+}
+Area.version = '1.0';
+Area.triangle = function(base, height) {
+  return base * height / 2;
+}
+Area.diamond = function(width, height) {
+  return width * height / 2
+}
+document.writeln('Area클래스의 버전：' + Area.version);
+document.writeln('삼각형의 면적：' + Area.triangle(5, 3));
+var a = new Area();
+document.writeln('마름모의 면적：' + Area.diamond(10, 2));
+document.writeln('마름모의 면적：' + a.diamond(10, 2));
+</script>
+</pre>
+</body>
+</html>
+

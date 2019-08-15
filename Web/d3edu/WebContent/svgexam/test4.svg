@@ -1,0 +1,7 @@
+<svg width="180" height="100" xmlns="http://www.w3.org/2000/svg">
+	<text x="10" y="40" font-family="Arial" font-size="20pt" fill="red"> 
+        Hello! 안녕</text>
+  	<text x="10" y="80" font-size="20pt" font-weight="bold" fill="blue"> 
+        Roboto</text>
+</svg>
+       

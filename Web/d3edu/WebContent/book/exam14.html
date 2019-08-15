@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exam14.html</title>
+<meta charset="utf-8" />
+<script src="d3.v3.min.js"></script>
+</head>
+<body>
+<h2>y축 눈금을 그려보자...</h2>
+<hr>
+<svg id="myGraph" width="500" height="500"></svg>
+<script>
+d3.csv("testdata.csv", function(error, data){
+	console.log(data);
+	var y = [];
+	for(var obj in data) {
+		y.push(parseInt(data[obj].y));
+	}
+	displayChart(y);
+})
+function displayChart(y) {
+	var ySB = d3.extent(y);
+	var yMAX = d3.max(y);
+
+	//var scaleY = d3.scale.linear().domain(ySB).range([0, 300]);
+	//var scaleY = d3.scale.linear().domain(ySB).range([300, 0]);
+	var scaleY = d3.scale.linear().domain([0, yMAX]).range([300, 0]);
+	
+	d3.select("#myGraph")
+	.append("g")	
+	.attr("transform", "translate(50, 20)")	// 표시 위치 조정
+	.call(d3.svg.axis()	// call()로 눈금을 표시할 함수를 호출
+		.scale(scaleY)  // 스케일을 적용		
+		//.ticks(3)
+		//.outerTickSize(20)
+		//.innerTickSize(20)
+		//.tickValues(d3.range(0, 30, 6))
+        .tickPadding(20)
+        .orient("left") 
+    )
+	
+    d3.select("#myGraph").selectAll("path")
+        .style("stroke", "black")
+        .style("fill", "none")
+	
+        d3.select("#myGraph").selectAll("line")
+        .style("stroke", "red")
+}
+
+
+</script>
+</body>
+</html>

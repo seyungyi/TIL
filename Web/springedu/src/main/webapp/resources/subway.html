@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+img {
+	width: 300px;
+	height: 300px;
+}
+</style>
+</head>
+<body>
+<h1>HIVE 수행평가</h1>
+<hr>
+<div>
+	<img onclick="selectSubway(1)" src="https://cdn.pixabay.com/photo/2015/12/03/17/19/days-1075307_960_720.png"/>
+	<img onclick="selectSubway(2)" src="https://cdn.pixabay.com/photo/2015/12/03/17/19/numbers-1075308_960_720.png">
+	<img onclick="selectSubway(3)" src="https://cdn.pixabay.com/photo/2015/12/03/17/19/numbers-1075309_960_720.png">
+	<img onclick="selectSubway(4)" src="https://cdn.pixabay.com/photo/2015/12/03/17/19/numbers-1075312_960_720.png">
+</div>
+<script>
+	function selectSubway(cv) {
+		location.href='/springedu/subwayselect?line=line_'+cv;
+	}
+</script>
+</body>
+</html>

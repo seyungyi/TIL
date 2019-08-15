@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>자바스크립트의 생성자 함수</h1>
+<hr>
+<script src="util.js"></script>
+<script>
+function Student(p1, p2, p3, p4) {
+	this.name : p1,
+	this.kor : p2,
+	this.eng : p3,
+	this.math : p4,
+	this.getSum = function() {
+		return this.kor + this.eng + this.math;
+	},
+	this.getAvg = function() {
+		return this.getSum() / 3;
+	},
+	this.toString = function() {
+		return this.name + "학생의 총점은 " + this.getSum() + "입니다";
+	}
+}
+var student = new Student('둘리', 90, 80, 95,);
+var student = new Student('또치', 80, 90, 80,);
+var student = new Student('도우너', 85, 70, 80,);
+
+writeColor('학생1 : ' + student, 'h3', 'green');
+writeColor('학생2 : ' + student1, 'h3', 'blue');
+writeColor('학생3 : ' + student2, 'h3', 'red');
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>자바스크립트 변수의 스코프(1)</h2>
+<hr>
+<script>
+var g_v = 100;
+function scopeTest() {
+	var l_v = 1000;
+	document.write("scopeTest() l_v : " + l_v + "<br>");
+	document.write("scopeTest() g_v : " + g_v + "<br>");
+}
+scopeTest();
+try {
+	document.write("l_v : " + l_v + "<br>");
+} catch(e) {
+	document.write(e+"<br>")
+}
+document.write("g_v : " + g_v + "<br>");
+</script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exam4.html</title>
+<meta charset="utf-8" />
+<script src="d3.v3.min.js"></script>
+</head>
+<body>
+<h2></h2>
+<hr>
+자바스크립트 콘솔에서 확인하셩...
+<script>
+var x = d3.time.scale()
+.domain([new Date(2000, 0, 1), new Date(2000, 0, 2)])
+.range([0, 960]);
+
+
+console.log(x(new Date(2000, 0, 1,  5))); // 200
+console.log(x(new Date(2000, 0, 1, 16))); // 640
+console.log(x.invert(200)); // Sat Jan 01 2000 05:00:00 GMT-0800 (PST)
+console.log(x.invert(640)); // Sat Jan 01 2000 16:00:00 GMT-0800 (PST)
+</script>
+</body>
+</html>

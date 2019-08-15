@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+<output></output> <!-- 다른 h2 태그 등도 가능. output태그는 인라인스타일 외에는 화면출력이 미정 -->
+<hr>
+<button onclick="fontcolor('red')">Red</button>
+<button onclick="fontcolor('blue')">Blue</button>
+<button onclick="fontcolor('green')">Green</button>
+<script>
+
+var target = document.getElementsByTagName("output")[0];
+var d = new Date();
+target.innerHTML = "<h2>오늘은 "+ d.getFullYear() + "년 " + (d.getMonth()+1) 
+		+ "월 " + d.getDate() + "일입니다.</h2>";
+
+function fontcolor(color) {
+	target.style.color = color;
+}
+</script>
+</body>
+</html>

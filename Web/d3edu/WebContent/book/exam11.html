@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exam10.html</title>
+<meta charset="utf-8" />
+<script src="d3.v3.min.js"></script>
+</head>
+<body>
+<h2></h2>
+<hr>
+자바스크립트 콘솔에서 확인하셩...
+<script>
+d3.json("tweets.json",function(data) {
+  var tweetData = data.tweets;
+  console.log(tweetData);
+  var nestedTweets = d3.nest()
+	    .key(function(el) {return el.user})
+	    .entries(tweetData);
+  console.log(nestedTweets);
+});	
+
+</script>
+</body>
+</html>

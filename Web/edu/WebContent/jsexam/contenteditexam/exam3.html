@@ -1,0 +1,45 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Editable list in HTML5</title>
+<style>
+#myDiv {
+	width:300px; 
+	height:200px; 
+	border:1px dotted red;
+	border-radius: 20px;
+	padding:10px;
+}
+</style>
+</head>
+<body>
+	<h2>오늘 할 일?</h2>
+	<div id="myDiv" contenteditable="true" >
+		
+	</div><br>
+	<input type="button" id="myButton"  value="리스트 삭제">
+<script>
+var div;
+var button;
+function init() {
+   	div = document.getElementById("myDiv");
+  	button = document.getElementById("myButton");
+
+	div.addEventListener('blur', function () {
+  		localStorage.setItem('todolist', this.innerHTML); 	 	
+	});
+
+	button.addEventListener('click', function () {
+  		localStorage.clear();
+  		window.location.reload(); // refresh
+	});
+
+	if (localStorage.getItem('todolist')) {
+		  div.innerHTML = localStorage.getItem('todolist');
+	}
+}
+window.addEventListener("load", init);
+</script>	
+</body>
+</html>

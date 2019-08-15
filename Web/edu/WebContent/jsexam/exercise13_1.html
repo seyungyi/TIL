@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button>이미지 보이기</button>
+<button>이미지 숨기기</button>
+<hr>
+<output>
+<img style='display:none' src='http://70.12.113.181:8000/edu/images/totoro.png' width='200' >
+</output>
+<h1>ㅋㅋㅋ</h1><h1>ㅋㅋㅋ</h1>
+<script>
+var target = document.getElementsByTagName("img")[0];
+var dom1 = document.querySelectorAll("button")[0];
+var dom2 = document.querySelectorAll("button")[1];
+dom1.onclick = function(){	
+	 target.style.display = 'inline';
+}
+
+dom2.onclick = function(){
+   target.style.display = 'none';
+}
+
+
+</script>
+</body>
+</html>

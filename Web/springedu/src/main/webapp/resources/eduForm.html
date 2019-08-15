@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+section {
+	margin-left: 35%;
+	margin-right: 35%;
+	padding: 20px;
+	border: solid 1px gray;
+	border-radius: 15px;
+	background: radial-gradient(red, green, yellow);
+}
+</style>
+</head>
+<body>
+<section>
+	<h1>성적을 입력하시오.</h1>
+	<hr>
+	<form method="POST" action="http://localhost:8000/springedu/educontroller">
+		이름 : <input required type="text" name="name"><br>
+		평균 점수 : <input required type="number" name="avgScore" min="0" max="100"><br><br>
+		<input type="submit" value="전송">
+		<input type="reset" value="재작성">
+	</form>
+</section>
+</body>
+</html>

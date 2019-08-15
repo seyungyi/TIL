@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="../util.js"></script>
+<script>
+	window.onload = function() { // 이벤트핸들러로 등록하는 과정(html모두 읽은후 실행) -> 기존내용삭제
+		var outDom = document.getElementById("p");
+		for(var i=1; i<6; i++)
+			outDom.innerHTML += document.getElementById("t"+i);
+	}
+</script>
+<h1 id="t1">컨텐트1</h1>
+<h2 id="t2">컨텐트5</h2>
+<p id="t3">컨텐트2</p>
+<div id="t4">컨텐트3</div>
+<img id="t5" src="../../images/totoro.png" width="100">
+<hr>
+<output id="p"></output> <!-- output도 html5에서 추가된 태그 :  -->
+</body>
+</html>

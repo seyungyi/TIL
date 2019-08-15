@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+function calc() {	
+	 var sum=0;
+	 if(arguments.length != 0) {
+			 for(var i in arguments) {
+				 if(isNaN(parseInt(arguments[i])))
+					 return '숫자만 전달하세요';
+				 else
+					 sum += parseInt(arguments[i]);
+			 }
+			 return sum;
+	 } else
+		 return 0;
+ }
+    document.write("<h3>" + calc() + "<br>");
+    document.write(calc(10, 20, '30') + "<br>");
+    document.write(calc(10, '가나다', 20) + "<br>");
+    document.write(calc(1,2,3,4,5) + "</h3>");
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+<script>
+var random = Math.floor((Math.random()*3)+1);
+var choice = window.confirm('확인 | 취소');
+if(choice) {
+    switch(random) {
+        case 1: location.href = "http://www.daum.net/"; break;
+        case 2: location.href = "http://www.naver.com/"; break;
+        default : location.href = "http://www.google.com/"; break;
+    }
+} else {
+    location.href = '/edu/first.html';
+}
+</script>
+</body>
+</html>

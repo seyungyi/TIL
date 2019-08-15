@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exam4.html</title>
+<meta charset="utf-8" />
+<script src="d3.v3.min.js"></script>
+</head>
+<body>
+<h2></h2>
+<hr>
+자바스크립트 콘솔에서 확인하셩...
+<script>
+var sampleArray = [423,124,66,424,58,10,900,44,1];
+var qScale = d3.scale.quantile().domain(sampleArray).range([0,1,2]);
+console.log(qScale(423));	
+console.log(qScale(20));	
+console.log(qScale(10000));	
+</script>
+</body>
+</html>

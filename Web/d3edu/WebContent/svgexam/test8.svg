@@ -1,0 +1,16 @@
+<svg  width="5cm" height="5cm" 
+          xmlns="http://www.w3.org/2000/svg">
+    <title>SVG Grouping</title>
+    <desc>Two groups, each of two rectangles</desc>
+    <g id="group1" fill="red" >
+       <rect x="1cm" y="1cm" width="1cm" height="1cm" />
+       <rect x="3cm" y="1cm" width="1cm" height="1cm" />
+    </g>
+    <g id="group2" fill="blue" >
+       <rect x="1cm" y="3cm" width="1cm" height="1cm" />
+       <rect x="3cm" y="3cm" width="1cm" height="1cm" />
+    </g>
+    <!-- Show outline of canvas using 'rect' element -->
+    <rect x=".1cm" y=".1cm" width="4.9cm" height="4.9cm"
+          fill="none" stroke="blue" stroke-width=".02cm" /> 
+</svg>

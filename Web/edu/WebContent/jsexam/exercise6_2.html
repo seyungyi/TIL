@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>자바스크립트실습</h1>
+	<hr>
+	<script>
+		function calc() {
+			var rel = 0;
+			if (arguments.length) {
+				for ( var i in arguments)
+					if (isNaN(arguments[i])) {
+						rel = "숫자만 전달 부탁~해요";
+						break;
+					} else
+						rel += parseInt(arguments[i]);
+			}
+			return rel;
+		}
+		document.write("<h3>" + calc() + "</h3>");
+		document.write("<h3>" + calc(10, 20, '30') + "</h3>");
+		document.write("<h3>" + calc(10, '가나다', 20) + "</h3>");
+		document.write("<h3>" + calc(1, 2, 3, 4, 5) + "</h3>");
+	</script>
+</body>
+</html>

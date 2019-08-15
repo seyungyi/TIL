@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+function sum(ran) {
+		var sum=0;
+		if(typeof ran==undefined) {
+			return;
+		} else {
+			for(var i=1; i<=ran; i++)
+				sum += i;
+			return sum;				
+		}
+		/* 
+		if(ran) {
+			for(var i=1; i<=ran; i++)
+				sum += i;
+			return sum;
+		}
+		*/
+	}
+var random = Math.floor((Math.random()*6));
+var result = null;
+if(random == 0) {
+	result = sum();
+} else
+	result = sum(random);
+
+if(!result) 
+	document.write("<br>결과값이 없어요!!");
+else
+	document.write("<br>호출 결과값 " + result);
+	
+/*
+function sum(p) {
+	if (typeof p != "undefined") {
+		var res = 0;
+		for (var i = 1; i <= p; i++)
+			res += i;
+		return res;
+	}
+}
+	var ran = Math.floor(Math.random() * 6);
+	var result = ((ran == 0) ? sum() : sum(ran));
+	((typeof result != "undefined")?result = '호출 결과값 : ' + result
+	: result = '결과값이 없어요.');
+	document.write(result);
+ */
+</script>
+</body>
+</html>

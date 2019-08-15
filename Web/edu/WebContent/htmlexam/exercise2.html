@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+#blue {
+	color: blue;
+}
+#red { 
+	color: red;
+}
+</style>
+</head>
+<body>
+	<script>
+		var num1 = window.prompt("숫자를 입력하세요 : ");
+		var num2 = window.prompt("숫자를 입력하세요 : ");
+		var oper = window.prompt("연산자를 입력하세요 : ");
+		var res;
+		if (oper == "+") {
+			res = (num1 * 1) + (num2 * 1);
+		} else if (oper == "-") {
+			res = num1 - num2;
+		} else if (oper == "*") {
+			res = num1 * num2;
+		} else if (oper == "/") {
+			res = num1 / num2;
+		} else if (oper == "%") {
+			res = num1 % num2;
+		} else {
+			document.writeln("<h2 id=\"red\">+, -, *, /, % 만 입력 가능</h2>");
+		}
+		document.writeln("<h2 id=\"blue\">" + num1 + " 와 " + num2 + " 의 "
+				+ oper + " 연산 결과는 " + res + "입니다.</h2>");
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="Gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="800" y2="0">
+      <stop offset="0" stop-color="white" stop-opacity="0" />
+      <stop offset="1" stop-color="white" stop-opacity="1" />
+  </linearGradient>
+  <mask id="Mask" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="800">
+      <rect x="0" y="0" width="800" height="800" fill="url(#Gradient)" />
+  </mask>
+  <text id="Text" x="400" y="100"  font-family="Verdana" font-size="100" text-anchor="middle" >
+        Masked text  </text>
+</defs>
+<rect x="0" y="0" width="800" height="800" fill="#FFAAAA" />
+<use href="#Text" transform="translate(0,50)"	fill="none" 
+     stroke="black" stroke-width="4" />
+<use href="#Text" transform="translate(0,150)" fill="blue"
+     mask="url(#Mask)" />
+<use href="#Text" transform="translate(0,250)" fill="blue"
+     stroke="black" stroke-width="4" mask="url(#Mask)"/>
+<use href="#Text" transform="translate(0,350)"	fill="blue"
+     mask="url(#Mask)" /> 
+<use href="#Text" transform="translate(0,350)"	fill="none"
+     stroke="black" stroke-width="4" /> 
+
+<rect x="100" y="500" width="600" height="50"	fill="cyan"
+     stroke="blue" stroke-width="6" />
+<rect x="100" y="580" width="600" height="50"	fill="none"
+     stroke="blue" stroke-width="6" mask="url(#Mask)"/>
+<rect x="100" y="660" width="600" height="50" fill="cyan"
+     stroke="blue" stroke-width="6" mask="url(#Mask)"/>
+</svg>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+<h1>오늘의 날씨 정보</h1>
+<hr>
+<script>
+window.onload = function() { 
+    var request = new XMLHttpRequest();	        // XML엔진을 초기화
+    request.onreadystatechange = function() {	// XML 핸들러 등록
+        if(request.readyState == 4) {
+            if(request.status == 200) {
+                var str = request.responseText; // jsp파일을 읽어 str변수에 모두 저장
+                var jsObj = JSON.parse(str);	// str내용을 파싱. 크로스 오리진 주의!!
+                document.body.innerHTML += "<h2>기준 시간 : " + jsObj.time + "<br>";
+                document.body.innerHTML += "<h2>기온 : " + jsObj.temp + "도<br>";
+                document.body.innerHTML += "<img width='100px' height='100px' src= ../" + jsObj.img + "></h2>";
+            }
+        }
+    }
+    request.open("GET", "content/weather.jsp", true); // weather.jsp 파일이 필수
+    request.send();
+}
+</script>
+</body>
+</html>

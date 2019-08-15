@@ -1,0 +1,17 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+    <line x1="10" y1="50" x2="50" y2="10"
+        stroke="green" stroke-width="1" />
+    <line x1="70" y1="50" x2="110" y2="10"
+        stroke="green" stroke-width="10" />
+    <line x1="130" y1="50" x2="170" y2="10"
+        stroke="green" stroke-width="20" />
+
+    <polyline fill="none" stroke="red" stroke-width="3" 
+        points="10,95  30,95  30,85  50,85  50,95  70,95  70,80
+                    90,80  90,95  110,95  110,75  130,75  130,95
+                    150,95  150,70  170,70  170,95  190,95" />
+
+    <polygon fill="lime" stroke="blue" stroke-width="3" 
+        points="100,125  128,137.5  128,162.5
+                    100,175  72,162.5  72,137.5" /> 
+</svg>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+body { 
+    border: 3px solid purple;
+    padding: 5px;
+}
+h1 {
+    text-align: center;
+}
+button {
+    width: 10%;
+    font-weight: bold;
+}
+output {
+    text-align: center;
+}
+</style>
+<body>
+<h1>구구단(고전 이벤트)</h1>
+<button id="one" value="1">1단</button>
+<button id="two" value="2">2단</button>
+<button id="three" value="3">3단</button>
+<button id="four" value="4">4단</button>
+<button id="five" value="5">5단</button>
+<button id="six" value="6">6단</button>
+<button id="seven" value="7">7단</button>
+<button id="eight" value="8">8단</button>
+<button id="nine" value="9">9단</button>
+<output></output>
+<script>
+function btnClick(e) {
+    var target= document.getElementsByTagName("output")[0];
+    target.innerHTML = null;
+    for(var i=1; i<=9; i++) {
+        target.innerHTML += "<h3>"+this.value+" * "+i+" = "+(this.value*i)+"</h3>";
+    }
+}
+var btn = document.getElementsByTagName("button");
+for(var i=0; i<9; i++) {
+    btn[i].onclick = btnClick;
+}
+</script>  
+</body>
+</html>

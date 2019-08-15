@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>JavaScript로 구현하는 Ajax 프로그램-JSON</h1>
+<script>
+	window.onload = function() {
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			//alert(request.readyState);
+			if(request.readyState == 4) {
+				if(request.status == 200) {
+					var str = request.responseText;	// 서버로부터 파싱한 json 파일 도규먼트를 읽음
+					//alert(str);
+					var jsObj = JSON.parse(str);
+					var output = "";
+					for(var i in jsObj)
+						output += "<h2>"+jsObj[i]+"</h2>";
+					//alert(output);
+					document.body.innerHTML += output;
+				}
+			}
+		}
+		request.open("GET", "content/testjson.txt", true);
+		request.send();
+	}
+</script>
+</body>
+</html>

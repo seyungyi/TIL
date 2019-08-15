@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>시간정보 출력하기</h1>
+<hr>
+<button onclick="startTime()">시간을 알려주세요</button>
+<button onclick="stopTime()">시간 출력을 종료해주세요</button>
+<output></output>
+<script>													// 컬렉션에서 사용할 경우
+	var target = document.getElementsByTagName("output")[0]; // 첫 번째 원소만 꺼낼경우에 [0] 추가
+	function startTime() {
+		var d = new Date();
+		target.innerHTML = "<h2>"+d.toLocaleString()+"</h2>";
+	}
+	function stopTime() {
+		target.innerHTML = "";
+	}
+</script>
+</body>
+</html>

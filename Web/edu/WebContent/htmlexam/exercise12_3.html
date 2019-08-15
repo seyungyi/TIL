@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+body { 
+    border: 3px solid purple;
+    padding: 5px;
+}
+h1 {
+    text-align: center;
+}
+button {
+    width: 10%;
+    font-weight: bold;
+}
+output {
+    text-align: center;
+}
+</style>
+<body>
+<h1>구구단(Standard Event)</h1>
+<div>
+    <button value="1">1단</button>
+    <button value="2">2단</button>
+    <button value="3">3단</button>
+    <button value="4">4단</button>
+    <button value="5">5단</button>
+    <button value="6">6단</button>
+    <button value="7">7단</button>
+    <button value="8">8단</button>
+    <button value="9">9단</button>
+</div>
+<output></output>
+<script>
+function gugudan(e) {
+    var print = document.getElementsByTagName("output")[0];
+    print.innerHTML = null;
+    for(var i=1; i<=9; i++)
+        print.innerHTML += "<h3>"+this.value+" * "+i+" = "+(this.value*i)+"</h3>"
+}
+var btn = document.getElementsByTagName("button")
+var i=0;
+while(i<9) {
+    btn[i].addEventListener("click", gugudan);    
+    i++; // btn이 유사배열객체(Collection객체)이기에 []이용
+}
+</script>  
+</body>
+</html>

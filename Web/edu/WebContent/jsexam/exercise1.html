@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<pre>	<!--pre태그는 첫 열과 태그와의 공백도 그대로 출력 -->
+<script>
+	var num;
+	while(true) {
+		num = window.prompt("1 ~ 9 사이의 숫자 입력 : ");
+		if(isNaN(num) || num == '' || num == null || num>9 || num<1) {
+			num = window.prompt("1 ~ 9 사이의 숫자 입력 : ");
+		}
+		else {
+			break;
+		}
+	}
+	document.writeln(num + " 단입니다.");
+	for(var i=0; i<num; ++i) {
+		document.writeln(num + " * " + i + " = " + (i)*num);
+	}
+</script>
+</pre>
+</body>
+</html>

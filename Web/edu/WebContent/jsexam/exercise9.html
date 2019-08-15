@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+function DayInfo(v1, v2, v3, v4) {
+     this.name = v1;
+     this.year = v2;
+     this.month = v3-1;
+     this.day = v4;
+}
+DayInfo.prototype.getTotalDays = function() {
+	 var currentDate = new Date();
+     var birthDate = new Date(this.year, this.month, this.day);
+     var operateDate = Math.floor((currentDate - birthDate) / (24*60*60*1000));
+     return document.write("<h3>" + name + "님은 태어난지 " 
+   		 + operateDate + "일 되었어요.</h3>"); 
+   	 // return operateDate;
+}
+DayInfo.prototype.getKorDay = function() {
+	var reuslt=null;
+    var date = new Date(this.year, this.month, this.day);
+    switch(date.getDay()) {
+         case 0: result='일'; break;
+         case 1: result='월'; break;
+         case 2: result='화'; break;
+         case 3: result='수'; break;
+         case 4: result='목'; break;
+         case 5: result='금'; break;
+         default: result='토';
+    }
+      return document.write("<h3>" + name + "님은 " 
+      		 + result + "요일에 태어났어요.</h3>"); 
+      // return result;
+} 
+var arr = new Array();
+var fruit1 = new DayInfo('귤', '2019', '5', '31');
+var fruit2 = new DayInfo('바나나', '2018', '9', '5');
+var fruit3 = new DayInfo('거봉', '2017', '7', '15');
+arr.push(fruit1);
+arr.push(fruit2);
+arr.push(fruit3);
+for(var i in arr) {
+     arr[i].getTotalDays();
+     arr[i].getKorDay(); 
+  /* document.write("<h3>" + arr[i].name + "님은 태어난지 " 
+    		 + arr[i].getTotalDays() + "일 되었어요.</h3>");
+     document.write("<h3>" + arr[i].name + "님은 " 
+    		 + arr[i].getKorDay() + "요일에 태어났어요.</h3>");  */
+}
+</script>
+</body>
+</html>

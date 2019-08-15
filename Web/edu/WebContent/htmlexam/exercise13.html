@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+button {
+    font-weight: bold;
+} 
+img {
+    width: 90%;
+    padding: 5%;
+}
+</style>
+</head>
+<body>
+<!-- <button onclick="imageOpen()">이미지 보이기</button>   // inline
+<button onclick="imageClose()">이미지 숨기기</button> -->
+<button id="open">이미지 보이기</button>                    <!--고전-->
+<button id="close">이미지 숨기기</button>
+<!-- <button id="open">이미지 보이기</button>               // 표준
+<button id="close">이미지 숨기기</button> -->
+<!--<img style='display:none' src='url'>-->
+<div></div>
+<script>
+var url = "<img src='http://www.purelogics.net/blog/wp-content/uploads/2019/01/javascript.png'>";
+var target = document.getElementsByTagName("div")[0];
+
+function imageOpen() {                   // inline, 표준 DOM모델 함수
+    target.innerHTML = url;
+}
+function imageClose() {
+    target.innerHTML = null;
+}
+
+var btn1 = document.getElementById("open"); // inline방식
+var btn2 = document.getElementById("close");
+
+btn1.onclick = function() {                 // 고전 방식
+    target.innerHTML = url;
+}
+btn2.onclick = function() {
+    target.innerHTML = null;
+}
+
+btn1.addEventListener("click", imageOpen);  // 표준방식
+btn2.addEventListener("click", imageClose);
+</script>
+</body>
+</html>

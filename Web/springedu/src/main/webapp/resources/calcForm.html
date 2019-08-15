@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>연산할 두 개의 숫자를 입력하고 연산자를 선택하시오.</h1>
+<hr>
+<form method="GET" action="/springedu/calccontroller">
+	<input required type="number" name="number1" size="30">
+	<select name="operator">
+		<option></option>
+		<option>+</option>
+		<option>-</option>
+		<option>*</option>
+		<option>/</option>
+	</select>
+	<input required type="number" name="number2" size="30">
+	<input type="submit" value="계산하기">
+</form>
+</body>
+</html>

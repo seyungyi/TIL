@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100">
+        <style> 
+            @import url("https://fonts.googleapis.com/css?family=Jua")
+        </style>
+    <style><![CDATA[svg text{stroke:none}]]></style>
+    <text x="20" y="50" >Roboto</text>
+    <text x="10" y="80" font-family="Roboto" font-size="20pt" font-weight="bold" fill="blue"> 
+        Roboㅊto</text>
+</svg>

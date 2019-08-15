@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="util.js"></script>
+<script>
+	function printObject(p){
+		if(typeof p != "object")
+			return;
+		writeColor(p.msg, p.tag, p.color);
+	}
+	printObject({msg:"blueberry", tag:"h1", color:"blue"});
+	printObject({msg:"banana", tag:"h3", color:"yellow"});
+	printObject({msg:"apple", tag:"h4", color:"red"});
+	printObject({msg:"kiwi", tag:"h3", color:"green"});
+	printObject({msg:"orange", tag:"h4", color:"orange"});
+</script>
+</body>
+</html>

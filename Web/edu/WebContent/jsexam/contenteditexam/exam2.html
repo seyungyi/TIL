@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>contenteditable</title>
+<style>
+div.edit_content {
+	width: 300px;
+	height: 150px;
+	margin: 5px;
+	border-width: 2px;
+	border-color: #ff0000;
+	border-style: solid;
+}
+
+div.edit_content[contenteditable=true] {
+	width: 300px;
+	height: 150px;
+	margin: 5px;
+	border-width: 2px;
+	border-color: #0000ff;
+	border-style: solid;
+}
+</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<div class="edit_content">
+					<b>contenteditable 속성</b><br>
+					<br /> <span>contenteditable 속성은 요소를 편집 모드로 변경합니다.</span>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<button id="edit_btn" onclick="edit_content()">수정</button>
+				<button id="fin_btn" onclick="fin_content()">완료</button>
+			</td>
+		</tr>
+	</table>
+	<script>
+		function edit_content() {
+			var edit_content = document.querySelector("div.edit_content");
+			edit_content.setAttribute("contenteditable", true);
+		}
+		function fin_content() {
+			var edit_content = document.querySelector("div.edit_content");
+			edit_content.setAttribute("contenteditable", false);
+		}
+	</script>
+</body>
+</html>

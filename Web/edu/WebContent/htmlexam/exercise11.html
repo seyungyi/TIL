@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+<output></output><!-- 다른 h2 태그 등도 가능. output태그는 인라인스타일 외에는 화면출력이 미정 -->
+<hr>
+<button onclick="fontcolor('red')">Red</button>
+<button onclick="fontcolor('blue')">Blue</button>
+<button onclick="fontcolor('green')">Green</button>
+<script>
+/* <DOM 사용>
+ 다음 자바스크립트로 기능을 구현해 본다.
+ 1) "오늘은 XXXX년 X월 X일입니다."
+     를 <h2> 태그로 출력하는 자바스크립트 코드를 작성한다.
+
+ 2) "XX색" 버튼과 "XX색" 버튼 3개를 출력한다.(각각 칼라이름으로 설정)
+ 
+ 3) 어떤 버튼이 클릭되는가에 따라서 
+     위에 출력된 "오늘은 XXXX년 X월 X일입니다."의 칼라로
+     변경한다. */
+var target = document.getElementsByTagName("output")[0];
+var d = new Date();
+target.innerHTML = "<h2>오늘은 "+ d.getFullYear() + "년 " + (d.getMonth()+1) 
+		+ "월 " + d.getDate() + "일입니다.</h2>";
+
+function fontcolor(color) {
+	target.style.color = color;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<svg width="500" height="400" 
+    xmlns="http://www.w3.org/2000/svg">
+ <style >
+      .Border { fill:none; stroke:blue; stroke-width:1 }
+      .Connect { fill:none; stroke:#888888; stroke-width:2 }
+      .SamplePath { fill:none; stroke:red; stroke-width:5 }
+      .EndPoint { fill:none; stroke:#888888; stroke-width:2 }
+      .CtlPoint { fill:#888888; stroke:none }
+      .Label { font-size:22; font-family:Verdana }
+   </style>
+
+   <rect class="Border" x="1" y="1" width="498" height="398" />
+
+   <polyline class="Connect" points="100,200 100,100" />
+   <polyline class="Connect" points="250,100 250,200" />
+   <path class="SamplePath" d="M100,200 C100,100 250,100 250,200" />
+
+   <circle class="EndPoint" cx="100" cy="200" r="10" />
+   <circle class="CtlPoint" cx="100" cy="100" r="10" />
+   <circle class="CtlPoint" cx="250" cy="100" r="10" />
+   <circle class="EndPoint" cx="250" cy="200" r="10" />
+   <text class="Label" x="25" y="70">M100,200 C100,100 250,100 250,200</text>
+</svg>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+<title>WebSocket Test Page</title>
+</head>
+<script> 
+    var textarea, webSocket, inputMessage, name;
+	window.onload = function() {
+		while(true) {
+			name = prompt("채팅명을 입력해 주세요...");
+			if (name != null && name != "") {
+				document.getElementsByTagName("h1")[0].innerHTML +=
+					 "난 "+name+"임!!";
+				break;
+			}				
+		}
+		textarea = document.getElementById("messageBox");		
+		webSocket = new WebSocket('ws://70.12.113.160:8000/sedu/chatserver');
+		inputMessage = document.getElementById('inputMessage');
+		webSocket.onerror = errorHandle;
+		webSocket.onopen = openHandle;
+		webSocket.onmessage = messageHandle;
+		inputMessage.onkeypress = function(event) {
+			if (event.keyCode == '13') {
+				send();
+			}
+		}
+	}
+	function messageHandle(event) {		
+		textarea.value += event.data + "\n";
+	}
+	function openHandle(event) {
+		textarea.value += "연결 성공\n";
+	}
+	function errorHandle(event) {
+		alert(event.data);
+	} 
+	function send() {		
+		textarea.focus(); 
+		var msg = inputMessage.value;
+		webSocket.send(name +" : "+inputMessage.value);
+		inputMessage.value = "";
+	}
+</script>
+<body>
+ <h1>채팅을 해보장!!!</h1>
+ <hr> 
+ <textarea id="messageBox" style="height:400px;width:400px;font-size:25px;overflow-y:scroll" readonly="true" autofocus></textarea>
+ <br />
+ <input id="inputMessage" type="text" size="39" />
+ <input type="button" value="보내기" onclick="send()" />
+</body>
+</html>

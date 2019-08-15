@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+
+<body>
+    <script>
+        function sum(num) {
+            if (typeof num == "number") {
+                var result = (1 + num) * num / 2;
+                return result
+            }
+        }
+        var rand = parseInt(Math.random() * 6);
+        if (rand == 0) {
+            if (typeof (sum()) == "undefined") {
+                document.write("전달된 아규먼트 없음!!");
+            }
+        }
+        else {
+            if (typeof (sum(rand)) != "undefined") {
+                document.write("호출 결과값 : " + sum(rand));
+            }
+        }
+    </script>
+</body>
+
+</html>

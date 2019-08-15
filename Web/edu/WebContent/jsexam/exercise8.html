@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="util.js"></script>
+<script>
+function printObject(p) {
+    if(typeof p != 'object')
+        return;
+    writeColor(p.content, p.tag, p.color);
+}
+//printObject(writeColor('one', 'h1', 'red'));
+//printObject(writeColor('two', 'h2', 'brown'));
+//printObject(writeColor('three', 'h3', 'blue'));
+//printObject(writeColor('four', 'h4', 'green'));
+//printObject(writeColor('five', 'h5', 'purple'));
+var sam1 = {
+        content:'1',
+        tag:'h1',
+        color:'blue'
+}
+var sam2 = {
+        content:'2',
+        tag:'h2',
+        color:'green'
+}
+var sam3 = {
+        content:'3',
+        tag:'h3',
+        color:'purple'
+}
+var sam4 = {
+        content:'4',
+        tag:'h4',
+        color:'red'
+}
+var sam5 = {
+        content:'5',
+        tag:'h5',
+        color:'gray'
+}
+printObject(sam1);
+printObject(sam2);
+printObject(sam3);
+printObject(sam4);
+printObject(sam5);
+</script>
+</body>
+</html>

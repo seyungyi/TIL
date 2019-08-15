@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function draw() {
+    var smile = document.getElementById("canvas");
+    canvas = smile.getContext('2d');
+
+    canvas.beginPath();
+    canvas.arc(180, 150, 120, 0, Math.PI*2, false);
+    canvas.strokeStyle = "black";
+    canvas.fillStyle = "yellow";
+    canvas.stroke();
+    canvas.fill();
+
+    canvas.beginPath();
+    canvas.moveTo(110, 100);
+    canvas.lineTo(145, 135);
+    canvas.lineTo(110, 165);
+    canvas.stroke();
+
+    canvas.beginPath();
+    canvas.moveTo(240, 100);
+    canvas.lineTo(205, 135);
+    canvas.lineTo(240, 165);
+    canvas.stroke();
+
+    canvas.beginPath();
+    canvas.moveTo(170, 180);
+    canvas.lineTo(140, 220);
+    canvas.lineTo(200, 220);
+    canvas.lineTo(170, 180);
+    canvas.stroke();
+    canvas.fillStyle = "red";
+    canvas.fill();
+
+    canvas.beginPath();
+    canvas.arc(470, 150, 120, 0, Math.PI*2, false);
+    canvas.storkeStyle="black";
+    canvas.fillStyle="yellow";
+    canvas.stroke();
+    canvas.fill();
+
+    canvas.beginPath();
+    canvas.arc(420, 130, 30, 0, Math.PI*2, false);
+    canvas.stroke();
+    
+    canvas.beginPath();
+    canvas.arc(520, 130, 30, 0, Math.PI*2, false);
+    canvas.stroke();
+    
+    canvas.beginPath();
+    canvas.moveTo(430, 200);
+    canvas.quadraticCurveTo(470, 270, 510, 200);
+    canvas.lineTo(430, 200);
+    canvas.fillStyle="red";
+    canvas.fill();
+    canvas.stroke();
+}
+function animation() {
+    canvas.beginPath();
+    canvas.arc(420, 130, 30, 0, Math.PI*2, false);
+    canvas.strokeStyle="yellow";
+    canvas.stroke();
+    
+    canvas.beginPath();
+    canvas.arc(520, 130, 30, 0, Math.PI*2, false);
+    canvas.storkeStyle="yellow";
+    canvas.stroke();
+
+    canvas.beginPath();
+    canvas.moveTo(390, 140);
+    canvas.quadraticCurveTo(420,70,450,140);
+    canvas.strokeStyle="black";
+    canvas.stroke();
+    
+    canvas.beginPath();
+    canvas.moveTo(490, 140);
+    canvas.quadraticCurveTo(520,70,550,140);
+    canvas.stroke();
+}
+window.addEventListener("load", draw, false);
+window.addEventListener("mousemove", animation, false);
+window.addEventListener("mouseout", draw, false);
+</script>
+</head>
+<body>
+<section>
+<canvas id="canvas" width="600" height="300" style="border:1px solid black;">
+</canvas>
+</section>
+</body>
+</html>
