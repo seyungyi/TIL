@@ -1,4 +1,4 @@
-# [JDBC 프로그래밍 정리]
+# [ JDBC Programming ]
 
 ## JDBC란?
 
