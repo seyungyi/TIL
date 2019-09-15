@@ -1,4 +1,4 @@
-# [ Scala Programming ]
+# [ Scala Programming - 1 ]
 
 ## 1. 스칼라란?
 
