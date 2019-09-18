@@ -1,0 +1,8 @@
+val rowRDD = pidAndCntDF.rdd
+
+val pidAndCntRDD = rowRDD.map{row=>
+     | val pid = row.get(0)
+     | val cnt = row.get(1)
+     | (pid, cnt)}
+
+pidAndCntRDD.collect.foreach(println)
