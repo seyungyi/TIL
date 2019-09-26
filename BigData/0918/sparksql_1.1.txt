@@ -1,0 +1,22 @@
+case class Product(pid: String, cnt: Int)
+
+val productRDD = sc.textFile("/edudata/product_click.log")
+
+val splitRDD = productRDD.flatMap(record => record.split(" ")
+
+val filterRDD = splitRDD.filter(_.matches("p[a-z0-9]*"))
+
+val productMap = proWordRDD.map((_, 1))
+
+val productReduce = productMap.reduceByKey(_ + _)
+
+val sortProduct = productReduce.sortBy(x => -x._2)
+
+val productDF = sortProduct.map { record => 
+     | val pid = record._1
+     | val cnt = record._2
+     | Product(pid, cnt) }.toDF
+
+productDF.show
+
+
