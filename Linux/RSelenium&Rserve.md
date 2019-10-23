@@ -1,4 +1,28 @@
-# [ AWS_Rselenium&Rserve_ Deployments ]
+# [ Selenium&Rserve_ Deployments ]
+
+# Rserve 서버
+
+- ## Download Rserve
+
+  ```R
+  > install.packages("Rserve")
+  > quit()
+  ```
+
+- ## Start Rserve
+
+  ```bash
+  $ R CMD Rserve --RS-encoding utf8
+  or
+  $ R CMD Rserve --RS-port 6311
+  ```
+
+- ## Kill Rserve
+
+  ```bash
+  $ netstat -tnlp | grep 6311
+  $ kill -9 PID번호
+  ```
 
 ## RSelenium 서버
 
@@ -86,27 +110,9 @@
      $ chromedriver --url-base=/wd/hub
      ```
 
-# Rserve 서버
+## PhantomJS
 
-- ## Download Rserve
+- Headless Browser로서 GUI 그래픽 환경이 없어도 백그라운드에서 웹 브라우저의 동적 실행을 가능하게 한다
 
-  ```R
-  > install.packages("Rserve")
-  > quit()
-  ```
 
-- ## Start Rserve
-
-  ```bash
-  $ R CMD Rserve --RS-encoding utf8
-  or
-  $ R CMD Rserve --RS-port 6311
-  ```
-
-- ## Kill Rserve
-
-  ```bash
-  $ netstat -tnlp | grep 6311
-  $ kill -9 PID번호
-  ```
 

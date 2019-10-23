@@ -28,7 +28,7 @@ PATH=$PATH:$CATALINA_HOME/bin	(저장)
 <Connector port="8080" 부분을 변경(oracle도 8080으로 겹치기에 필수) ..... >
 
 or
-- 홈페이지 url경로를 통해 직접 다운
+- 홈페이지 url경로를 통해 직접 다운(이 방법을 추천함!!!!!)
 wget http://apache.tt.co.kr/tomcat/tomcat-9/v9.0.27/bin/apache-tomcat-9.0.27.tar.gz
 ```
 
