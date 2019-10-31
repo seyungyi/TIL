@@ -23,6 +23,8 @@
 
   ```bash
   $ python -m venv .venv
+  $ source .venv/Scripts/activate
+  or
   $ .venv/Scripts/activate
   or
   $ . .venv/Scripts/activate

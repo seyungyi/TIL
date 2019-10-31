@@ -6,6 +6,24 @@
 - Git Bash
 - Python(Above 3.7.0)
 
+## Summary
+
+- 성격
+
+  - 독선적인 성향(Opinionated)
+
+- 활용
+
+  - for문
+
+    ```python
+    ## for문 사용 시작시 선언
+    {% for 변수 in 변수 %}
+    
+    {% endfor %}
+    ## for문 종료시 끝에 필수로 종료선언
+    ```
+
 ## Configuration Setting
 
 - django 라이브러리 설치
@@ -34,7 +52,7 @@
   ...
   ```
 
-- django project test
+- create django project
 
   ```bash
   $ cd [project명]
@@ -44,7 +62,7 @@
   [Ctrl] + [c]
   ```
 
-- django app 생성
+- create django app 생성
 
   ```bash
   $ django-admin startapp [app명]
@@ -89,13 +107,17 @@
 - urls.py -> 웹 브라우저에 접속하기 위한 Path 경로
 
   ```python
+  path('[path경로]', views.[함수명])
+  #앞에는 url주소, 뒤에는 views의 값
+  ```
+
+  ```python
   from django.contrib import admin
   from django.urls import path
   from [app명] import views
   
   urlpatterns = [
       path('admin/', admin.site.urls),
-  	path('[path경로]', views.[함수명]),
       path('home/dinner', views.dinner)
   ]
   ```
