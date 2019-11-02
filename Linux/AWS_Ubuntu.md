@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [Index](#index)
 - [Create EC2 Instance in AWS](#create_ec2_instance_in_aws)
 - [Basic](#basic)
 - [Firewall](#firewall)
@@ -12,6 +13,10 @@
 - [Database](#database)
 - [R](#r)
 - [RStudio](#rstudio)
+
+# Index
+
+- Amazon Web Serve EC2 프리티어 인스턴스를 기준으로 기본적인 Web 배포 환경을 구성하는 방법 정리하였음
 
 ## Create EC2 Instance in AWS
 
@@ -59,11 +64,10 @@
   $ sudo cp /home/ubuntu/.ssh/ /home/newuser/.ssh/
   or
   $ sudo cp -r /home/ubuntu/.ssh/ /home/hwkim/.ssh/
-  
   # 복사한 key-pair 소유자를 [유저명]으로 변경
   $ sudo chown -R newuser:newuser /home/newuser/.ssh
   ```
-
+  
 - 호스트명 수정
 
   ```bash
@@ -78,13 +82,11 @@
   [Default] UTC 타임존
   # 타임존 목록 확인(서울)
   $ timedatectl list-timezones | grep Seoul
-  
   # 변경[KST 타임존]
   $ timedatectl set-timezone Asia/Seoul
-  
   $ timedatectl
   ```
-
+  
 - 설치 파일 및 FTP 전송 파일 관리를 위한 폴더
 
   ```bash
@@ -103,13 +105,10 @@
 - 방화벽 개방 및 차단
 
   ```bash
-  $ ufw allow [포트번호]/[프로토콜]
-  $ ufw deny [포트번호]/[프로토콜]
-  or
-  $ ufw allow [서비스명]/[프로토콜]
-  $ ufw deny [서비스명]/[프로토콜]
+  $ ufw allow [포트번호 or 서비스명]/[프로토콜]
+  $ ufw deny [포트번호 or 서비스명]/[프로토콜]
   ```
-
+  
 - 방화벽 규칙 제거
 
   ```bash
@@ -147,7 +146,7 @@
 
   ```bash
   $ vi /etc/ssh/sshd_config
-  ## 주석을 해제
+  ## 아래 주석을 해제
   PermitRootLogin prohibit_password=YES
   ```
 
@@ -175,9 +174,7 @@
 
   ```bash
   $ service vsftpd status
-  $ netstat -natp | grep ftp
-  or
-  $ netstat -ntlp | grep LISTEN
+  $ netstat -natp | grep [ftp or LISTEN or port]
   ## vsftpd 는 TCP 21번 포트로 LISTEN 상태 확인
   ```
   
@@ -223,8 +220,8 @@
 - FTP 로그인 거부 설정
 
   ```bash
+  ## 파일에 쓰여진 사용자는 FTP 로그인이 거부됨
   $ vi /etc/ftpusers
-  ## 위 파일에 쓰여진 사용자는 FTP 로그인이 거부됨
   ```
 
 - 서비스 재시작
@@ -302,29 +299,25 @@
     $ tar -xvzf jdk-1.8.xxx.tar.gz
     $ mv jdk-1.8.xxx/ /usr/local/
     $ cd /usr/local
-    
     # 심볼릭 링크 설정
     $ ln -s jdk-1.8.xxx/ java
     ```
-
-  - Java 환경변수 설정
-
-    ```bash
+    
+- Java 환경변수 설정
+  
+  ```bash
     # 환경변수 설정 파일
     $ vi /etc/profile
-    
     ## 제일 아래 행에 추가 -> [Shift] + g
-    JAVA_HOME=/usr/local/java
-    PATH=$JAVA_HOME/bin:$PATH
-    export JAVA_HOME PATH
-    
+    export JAVA_HOME=/usr/local/java
+    export PATH=$JAVA_HOME/bin:$PATH
+    export CLASSPATH=$JAVA_HOME/lib
     # 환경변수 적용
     $ source /etc/profile
-    
     $ java -version
     $ javac -version
     ```
-
+  
 - 여러 개의 버전이 설치되어있을 경우
 
   - 설치된 자바 목록에서 Defalut Java 선택 가능
@@ -339,27 +332,21 @@
 
   ```bash
   # 1. Tomcat 설치
-  sudo apt-get install tomcat8
-   
+  sudo apt-get install tomcat9
   # 2. Tomcat 제거
-  sudo apt-get remove tomcat8
-   
+  sudo apt-get remove tomcat9
   # 3. Tomcat 상태 확인
   ps -ef | grep tomcat
-   
   # 4. Tomcat 버전 확인
-  sudo /usr/share/tomcat8/bin/version.sh
-   
+  sudo /usr/share/tomcat9/bin/version.sh
   # 5. Tomcat 시작
-  sudo service tomcat8 start
-   
+  sudo service tomcat9 start
   # 6. Tomcat 정지
-  sudo service tomcat8 stop
-  
+  sudo service tomcat9 stop
   # 7. Tomcat 재시작
-  sudo service tomcat8 restart
+  sudo service tomcat9 restart
   ```
-
+  
 - 수동 설치 방식
 
   - Tomcat 홈페이지에서 tar.gz 설치파일 링크 주소 복사
@@ -378,50 +365,47 @@
     $ tar -xvzf apache-tomcat-
     $ mv apache-tomcat-/ /usr/local
     $ cd /usr/local
-    
     ## 심볼릭 링크 설정
     $ ln -s apache-tomcat-/ tomcat
     ```
-
-  - Tomcat 기동과 종료
-
-    ```bash
-    $ cd /usr/local/tomcat/bin
     
+- Tomcat 기동과 종료
+  
+  ```bash
+    $ cd /usr/local/tomcat/bin
     # 톰캣 기동
     $ ./startup.sh
-    
     # 톰캣 정지
     $ ./shutdown.sh
     ```
-
+    
   - Tomcat Service 등록
-
-    1. Tomcat User 등록
-
-       ```bash
+  
+  1. Tomcat User 등록
+  
+     ```bash
        $ sudo groupadd tomcat
-       $ sudo useradd -M -s /bin/nologin -g tomcat -d /usr/local/tomcat tomcat
+     $ sudo useradd -M -s /bin/nologin -g tomcat -d /usr/local/tomcat tomcat
        ```
-
+  
     2. 권한 조정
-
-       ```bash
+  
+     ```bash
        $ chgrp -R tomcat /usr/local/tomcat
-       $ chmod -R g+r conf
+     $ chmod -R g+r conf
        $ chmod g+x conf
        $ chown -R tomcat webapps/ work/ temp/ logs/
        ```
-
+  
     3. systemd 설정파일 등록
-
-       ```bash
+  
+     ```bash
        $ sudo vi /etc/systemd/system/tomcat.service
-       ```
-
+     ```
+  
        ```
        # Systemd unit file for tomcat
-       [Unit]
+     [Unit]
        Description=Apache Tomcat Web Application Container
        After=syslog.target network.target
        
@@ -447,12 +431,12 @@
        [Install]
        WantedBy=multi-user.target
        ```
-
+  
   - systemd 재시작 및 관리
-
-    ``` bash
+  
+  ``` bash
     $ systemctl daemon-reload
-    $ systemctl enable tomcat
+  $ systemctl enable tomcat
     $ systemctl start tomcat
     $ systemctl stop tomcat
     $ systemctl restart tomcat
@@ -467,13 +451,12 @@
   ```bash
   $ sudo apt-get install software-properties-common
   $ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-  
   $ sudo vim /etc/apt/sources.list.d/mariadb.list
   # MariaDB 10.3 Repository
   deb [arch=amd64,arm64,ppc64el] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main
   deb-src http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main
   ```
-
+  
 - MariaDB-server install
 
   ```bash
@@ -521,7 +504,7 @@
   MariaDB [(mysql)]> CREATE USER '아이디'@'%' IDENTIFIED BY '비밀번호';
   # 사용자 권한 주기
   ## '%'는 모든 외부 접속 허용
-  MariaDB [(mysql)]> GRANT ALL PRIVILEGES ON 데이터베이스.* TO '아이디'@'%';
+  MariaDB [(mysql)]> GRANT ALL PRIVILEGES ON [데이터베이스].* TO '아이디'@'%';
   # 새로고침
   MariaDB [(mysql)]> FLUSH PRIVILEGES;
   ```
