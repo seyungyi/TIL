@@ -14,14 +14,26 @@
 
 - 활용
 
-  - for문
+  - HTML 문에서 사용할 수 있음
 
+  - for문
+  
     ```python
     ## for문 사용 시작시 선언
     {% for 변수 in 변수 %}
-    
+    	<HTML 태그>
     {% endfor %}
     ## for문 종료시 끝에 필수로 종료선언
+    ```
+  
+  - if문
+  
+    ```python
+    ## if문 사용시 선언
+    {% if 값 in [리스트 or 딕셔녀리] %}
+    	<HTML 태그>
+    {% endif %}
+    ## if문 종료시 필수 선언
     ```
 
 ## Configuration Setting
@@ -57,11 +69,10 @@
   ```bash
   $ cd [project명]
   $ python manage.py runserver
-  
   ## App 종료
   [Ctrl] + [c]
   ```
-
+  
 - create django app 생성
 
   ```bash
@@ -80,10 +91,90 @@
   ...
   ```
 
-- [app 폴더] 밑에 templates 폴더 생성
+- [app 폴더] 하위에 templates 관리를 위한 폴더 생성
 
   - Flask와 동일하게 기본 View Load 위치는 templates로 설정되어있음
+  
   - 모든 *.html 구성은 해당 폴더에 저장
+  
+  - 중복된 html 파일 구분을 위해 [app 폴더]와 동일한 이름 폴더 안에 관ㄹ
+  
+    > [app 폴더] - [templates] - [app 폴더] - [*.html]
+  
+- Django Namespace (=static 파일)
+
+  - 설정
+
+    - static 파일 사용시 -> {% load static %}
+
+      ```python
+      ex) {{% extends 'utilities/base.html' %}}
+      ```
+
+    - url 요청시 -> {% url 'name' %}
+
+      ```python
+      ex) {% url 'utilities/[요청url명]/' %}
+      # urls.py 등록 조건
+      path('[url명]/', views.[함수명], name='[url명]')
+      ```
+
+- Models 등록
+
+  - Python 내장 sqlite와 매칭될 클래스 생성
+
+    ```python
+    from django.db import models
+    class Movie(models.Model):
+        title = models.CharField(max_length=30)
+        audience = models.IntegerField()
+        open_date = models.DateField()
+        score = models.FloatField()
+        description = models.TextField()
+    ```
+
+- Migrations
+
+  - 모델의 변경 히스토리를 관리
+
+  - 모델의 변경 내역을 DB Schema(DB 데이터 구조)로 반영시키는 효율적인 방법을 제공
+
+    ```bash
+    $ python manage.py makemigrations
+    ```
+
+- Migrate
+
+  -  적용되지 않은 migrations들을(설정값들을) 적용시키는 역할 
+
+    ```bash
+    $ python manage.py migrate
+    ```
+
+- Django shell
+
+  - Python에 내장된 관계형 데이터베이스 관리시스템(RDBMS)
+
+  - 기본적으로 sqlite3 설치되어있음
+
+  - django-extensions 필수 설치
+
+    ```bash
+    $ pip install django-extensions
+    ```
+
+    ```bash
+    $ python manage.py shell
+    ...
+    >>> from [app명].models import [Class명] # shell과 연결 후 작성
+    >>> [Class명].objects.all() # 모든 데이터를 확인(QuerySet으로 확인)
+    ```
+
+  - import를 자동해주는 방식으로 shell 기동
+
+    ```bash
+    $ python manage.py shell_plus
+    ```
 
 ## Exercise
 
