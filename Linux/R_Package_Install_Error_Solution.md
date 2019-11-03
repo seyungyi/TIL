@@ -19,9 +19,10 @@
     ## For dependency of devtools in R
     $ sudo apt-get install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
     ## Preinstall some useful R Packages
-    $ R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"
     $ sudo apt-get install r-base-dev
     $ sudo apt-get build-dep r-cran-foo
+    ## On Terminal install R Package
+    $ R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"
     
     ## Rselenium 설치
     # Before we can install the package "RSelenium" from within R
@@ -56,6 +57,7 @@
     # rJava, curl, RSQLite, Rcpp 패키지가 설치되어있어야함
     # 필요에 따라서 Rserve와 tm 패키지를 설치할 수 있음
     > install.packages("KoNLP")
+    > library(KoNLP)
     
     ## devtools, dplyr는 KoNLP가 설치되었다면 정상 설치됨
     ```

@@ -1,21 +1,30 @@
 # Desktop Direct Icon Create Method
 
-데스크탑에 바로가기 아이콘 만들기
+- 데스크탑에 바로가기 아이콘 만들기
 
-( 내용은 적당히 수정 ) 
+  ```bash
+  $ sudo vi /usr/share/applications/[실행파일명].desktop
+  ```
 
-```
-[Desktop Entry]
-Name=Eclipse
-Type=Application
-Exec=/opt/eclipse/eclipse
-Terminal=false
-Icon=/opt/eclipse/icon.xpm
-Comment=Integrated Development Environment
-NoDisplay=false
-Categories=Development;IDE;
-Name[en]=Eclipse
-```
+- 개인 환경에 맞춰 내용 수정
 
-작성한 다음 저장한 후 아이콘 마우스 우측클림 Properties에서 permissions탭 Execute항목 체크 
+  ```vi
+  [Desktop Entry]
+  Name=Eclipse
+  Type=Application
+  Icon=/usr/local/eclipse/icon.xpm
+  Exec=/usr/local/eclipse/eclipse
+  Comment=Integrated Development Environment
+  NoDisplay=false
+  Terminal=false
+  Categories=Development; IDE;
+  ```
+
+- 바로가기 아이콘에 권한 부여
+
+  ```bash
+  $ sudo chmod 755 /usr/share/applications/[실행파일명].desktop
+  ```
+
+- 아이콘 속성에서 [ Permissions ] - [ Execute ] 체크
 
