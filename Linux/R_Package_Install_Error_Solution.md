@@ -13,8 +13,14 @@
 
 - 해결
 
-  - ubuntu 터미널에서 패키지 설치
+  - root 권한으로 접속 후 설치 권장
 
+    ```bash
+  $ sudo su
+    ```
+    
+  - ubuntu 터미널에서 패키지 설치
+  
     ```bash
     ## For dependency of devtools in R
     $ sudo apt-get install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
@@ -28,6 +34,11 @@
     # Before we can install the package "RSelenium" from within R
     $ sudo apt-get install r-cran-xml
     $ sudo apt-get install r-cran-RCurl
+    
+    # xml 설치시 의존성 문제 발생
+    $ sudo add-apt-repository ppa:marutter/c2d4u3.5
+    $ sudo apt update
+    
     # RSelenium을 설치하기 위해서는 xml, httr, RCurl 패키지가 필요하다는 것을 알았음
     $ R
     >> install.packages("RSelenium")
@@ -39,9 +50,13 @@
     $ sudo apt-get install r-cran-rjava
     > install.packages("rJava") <- R에 접속하여 실행
     
+    # rJava 설치시 여전히 non-exist-package 발생시 실행 -> 반드시 root 권한에서
+    $ sudo R CMD javareconf
+    
     ## curl 설치
     $ sudo apt-get install libcurl4-openssl-dev
     (참고 : https://stackoverflow.com/questions/42115972/r-rstudio-configuration-failed-because-libcurl-was-not-found)
+    $ sudo apt install r-cran-curl
     
     ## RSQLite 설치
     $ sudo apt-get install r-cran-rsqlite

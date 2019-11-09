@@ -10,11 +10,11 @@
 
   ```vi
   [Desktop Entry]
-  Name=Eclipse
+  Name=[바로가기 아이콘 이름]
   Type=Application
-  Icon=/usr/local/eclipse/icon.xpm
-  Exec=/usr/local/eclipse/eclipse
-  Comment=Integrated Development Environment
+  Icon=[아이콘 이미지 URL]
+  Exec=[실행 파일 URL]
+  Comment=[바로가기 아이콘 설명글]
   NoDisplay=false
   Terminal=false
   Categories=Development; IDE;
