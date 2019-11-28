@@ -24,7 +24,7 @@ import sys
 
 
 # Options
-ENCODING = 'latin2'
+ENCODING = 'utf8'
 CSV_DELIMITER = ';'
 
 # Check arguments
