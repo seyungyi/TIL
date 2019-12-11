@@ -1,0 +1,52 @@
+{
+    "1": {
+        "name": "염좌",
+        "test1": "One",
+        "test2": "One"
+    },
+    "2": {
+        "name": "골절",
+        "test1": "Two",
+        "test2": "Two"
+    },
+    "3": {
+        "name": "치매",
+        "test1": "Three",
+        "test2": "Three"
+    },
+    "4": {
+        "name": "결핵",
+        "test1": "Four",
+        "test2": "Four"
+    },
+    "5": {
+        "name": "대상포진",
+        "test1": "Five",
+        "test2": "Five"
+    },
+    "6": {
+        "name": "치핵",
+        "test1": "Six",
+        "test2": "Six"
+    },
+    "7": {
+        "name": "우울증",
+        "test1": "Seven",
+        "test2": "Seven"
+    },
+    "8": {
+        "name": "녹내장",
+        "test1": "Eight",
+        "test2": "Eight"
+    },
+    "9": {
+        "name": "협신증",
+        "test1": "Nine",
+        "test2": "Nine"
+    },
+    "10": {
+        "name": "크론병",
+        "test1": "Ten",
+        "test2": "Ten"
+    }
+}

@@ -24,7 +24,7 @@ import sys
 
 
 # Options
-ENCODING = 'utf8'
+ENCODING = 'utf-8'
 CSV_DELIMITER = ';'
 
 # Check arguments
@@ -49,12 +49,10 @@ print('Converting %s from CSV to JSON as %s' % (in_file, out_file))
 with codecs.open(in_file, 'r', encoding=ENCODING) as f:
 
   reader = csv.reader(f, delimiter=CSV_DELIMITER)
-
   header_row = []
   entries = []
 
   for row in reader:
-
     if not header_row:
       header_row = row
       continue
@@ -64,7 +62,6 @@ with codecs.open(in_file, 'r', encoding=ENCODING) as f:
     fields = {}
     for i in range(len(row) - 1):
       active_field = row[i+1] if row[i+1] != '' else '0'
-
       # convert numeric strings into actual numbers by converting to either
       # int or float
       if active_field.isdigit():
@@ -80,10 +77,15 @@ with codecs.open(in_file, 'r', encoding=ENCODING) as f:
     row_dict['pk'] = int(pk)
     row_dict['model'] = model_name
     row_dict['fields'] = fields
+    #print(row_dict)
     entries.append(row_dict)
 
 f.close()
 
+# Tip!!
+# 파이썬 객체를 JSON 변환시 값을 별도로 인코딩함. 문자열 값이 비라틴 계열일 경우 "\\uc548" 형태의 유니코드 값으로 출력된다.
+# 기본적으로 JSON 모듈은 비라틴 문자열에 대해 ASCII 인코딩을 적용해 변환하기에 읽을 수 있는 문자 형태로 dump(), dumps()함수를 사용
+# dump(), dumps() 함수 안에 ensure_ascii= 파라미터로 True, False를 줌으로써 변환된 인코딩 문자를 볼 수 있다.
 with open(out_file, 'w') as fo:
-    fo.write('%s' % json.dumps(entries, indent=4))
+    fo.write('%s' % json.dumps(entries, indent=4, ensure_ascii=False))
 fo.close()
