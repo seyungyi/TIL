@@ -4,6 +4,13 @@
 .venv/
 *.exe
 *.env
+*.csv
+*.json
+*.txt
+
+# Python #
+*.idea
+venv/
 
 # Created by https://www.gitignore.io/api/java,pydev,python,pycharm,eclipse,sublimetext,jupyternotebooks,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=java,pydev,python,pycharm,eclipse,sublimetext,jupyternotebooks,visualstudiocode
