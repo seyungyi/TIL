@@ -7,7 +7,7 @@
 3. 수행하려는 데이터 처리 기능에 따라 삽입, 삭제, 수정, 추출관련 SQL 문을 전달하거나 관련 함수를 수행시켜 데이터베이스를 사용
 
 ```
-R <-> ojdbc6.jar(JDBC드라이버) <-> Oracle Database
+R <-> ojdbc6.jar(JDBC드라이버) <-> Oracle, MySQL
 ```
 
 ## 패키지
@@ -17,8 +17,11 @@ R <-> ojdbc6.jar(JDBC드라이버) <-> Oracle Database
   ```R
   install.packages("DBI")
   install.packages("RJDBC")
+  # MySQL와 연동하고자할 경우
+  install.packages("RMySQL")
   library(DBI)
   library(RJDBC)
+  library(RMySQL)
   ```
 
 - RJDBC 패키지가 제공하는 함수들
@@ -28,6 +31,13 @@ R <-> ojdbc6.jar(JDBC드라이버) <-> Oracle Database
   JDBCConnection
   JDBCDrive
   JDBCResult
+  ```
+
+- RMySQL 패키지 제공 함수
+
+  ```R
+  db-meta  dbApply  dbConnect  dbDataType  dbEscapeStrings  dbFetch  dbGetInfo  dbNextResult  dbReadTable  dbUnloadDriver  dbWriteTable  IdCurrent 
+  MySQLConnection  mysqlClientLibraryVersions  mysqlHasDefaultr transactions 
   ```
 
 - DBI패키지가 제공하는 함수들
@@ -43,8 +53,14 @@ R <-> ojdbc6.jar(JDBC드라이버) <-> Oracle Database
 - DB 서버 접속
 
   ```R
-  drv <- JDBC("oracle.jdbc.driver.OracleDriver", "JDBC드라이버압축파일패스")
-  conn <- dbConnect(drv, "jdbc:oracle:this:@localhost:1521:xe", "계정", "암호")
+  # Oracle
+  # 드라이버 : oracle.jdbc.driver.OracleDriver
+  # URL : jdbc:oracle:this:@localhost:1521:xe
+  drv <- JDBC("JDBC드라이버", "JDBC드라이버압축파일패스")
+  conn <- dbConnect(drv, "JDBC URL", "계정", "암호")
+  
+  # MySQL 접속
+  con <- dbConnect(RMySQL::MySQL(), host="", port="", dbName="", user="", password="")
   ```
 
 - DB 접속 해제
@@ -145,3 +161,22 @@ R <-> ojdbc6.jar(JDBC드라이버) <-> Oracle Database
     nrow(ret1)
     nrow(ret2)
     ```
+
+## SQL Injection Prevent Methods
+
+- dbSendQuery에서 Insert Query에 값을 담아 전송할 때 paste를 이용해 문자를 붙여 쿼리문을 전달하면 SQL Injection Attack 위험도가 높다
+
+- paste 문자 안에 세미콜론(;)을 경계로 쿼리문이 실행된다
+
+- 만약, DROP 쿼리문 다음에 세미콜론을 붙이는 쿼리가 주입되면 테이블이 삭제되어 다음 실행할 쿼리에서 에러가 발생함
+
+- R DBI 패키지의 sqlInterpolate() 함수를 사용하면 해당 공격을 예방할 수 있다
+
+  ```R
+  # sqlInterpolate(con, sql, ..., .dots=list())
+  query <- "insert into table (name) values (?name)"
+  sql <- sqlInterpolate(con, query, name="test")
+  dbSendQuery(con, sql)
+  ```
+
+  
