@@ -8,12 +8,12 @@
 
 - 개인 환경에 맞춰 내용 수정
 
-  ```vi
+  ```visual basic
   [Desktop Entry]
   Name=[바로가기 아이콘 이름]
   Type=Application
   Icon=[아이콘 이미지 URL]
-  Exec=[실행 파일 URL]
+  Exec=[실행 파일 URL] # 실행파일 경로와 실행파일명을 정확히 일치시켜야 정상적으로 생성된다
   Comment=[바로가기 아이콘 설명글]
   NoDisplay=false
   Terminal=false
