@@ -4,7 +4,7 @@
 
 ### 1. Window
 
-1. [SQLite_Home_Page](https://www.sqlite.org/index.html) - Download Page 접속
+1. [SQLite_Home`_Page](https://www.sqlite.org/index.html) - Download Page 접속
 
 2. [ **Precompiled Binaries for Windows** ] 항목에서 .zip 설치
 
@@ -25,16 +25,9 @@
 4. 환경 변수 등록
 
    - Path의 마지막에 경로 등록 : `C:\sqlite\ `
+   - VSCode 재실행
 
-5. .bashrc에 alias 등록
-
-   ```bash
-   # git bash 실행
-   $ vi ~/.bashrc
-   alias sqlite3='winpty sqlite3'
-   ```
-
-6. python 가상환경에서 sqlite3 실행
+5. python 가상환경에서 sqlite3 실행
 
    ```bash
    (venv) $ sqlite3 db.sqlite3
