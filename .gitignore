@@ -1,4 +1,7 @@
 ## Add Execlusive ##
+# Mac Environment #
+.DS_store
+
 # vscode #
 .vscode/
 .venv/
