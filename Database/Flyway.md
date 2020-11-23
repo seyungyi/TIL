@@ -93,3 +93,23 @@
    Migrating schema "PUBLIC" to version 2 - Add people
    Successfully applied 1 migration to schema "PUBLIC" (execution time 00:00.016s)
    ```
+
+## Spring Flyway
+
+- Web Application - Spring Framework에서는 의존성 주입을 통해 데이터베이스 형상관리 라이브러리를 사용할 수 있다.
+- 별도의 명령어로 실행할 필요가 없으며 flyway 기본 설정 및 custom 설정만 해주면 migration 디렉토리에 버전 파일을 관리함으로서 편리하게 사용하도록 제공하고있다.
+
+### 설정 방법
+
+1. build.gradle dependency 설정 추가
+
+````java
+// build.gradle 설정
+implementation 'org.flywaydb:flyway-core'
+````
+
+2. migration 버전 형상 관리
+   - resources/db/migration : Flyway migration default location
+
+### Custom Configuration(Java)
+
