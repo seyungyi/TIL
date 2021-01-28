@@ -28,15 +28,71 @@
 
 - 사용방법은 2가지 방법 중 하나를 선택하여 진행할 수 있다.
 
-### Docker를 이용한 Jenkins 사용
+### Docker를 이용한 Jenkins 설치
 
 - 실습에서 진행한 방법. Docker를 사용함으로 로컬 PC환경을 깔끔하게 유지하면서 사용법을 읽힐 수 있다.
+- 사전에 Docker는 설치되어있다 가정하고 진행
+
+1. Pull jenkins/jenkins:lts
+
+   - jenkins 최신 버전의 경우보다 LTS 버전이 안정성이 좋지 않을까라는 생각으로 해당 버전을 선택 
+
+   ```bash
+   $ docker pull jenkins/jenkins:lts
+   ```
+
+2. Docker Jenkins Run
+
+   - `-d` : 백그라운드 실행 옵션
+   - `-p` : 포트 설정 -> 호스트 서버 9090 포트로 접근시 젠킨스 컨테이너 내부 8080 포트와 매핑
+   - `-v` : 호스트와 볼륨을 공유. 빌드 결과물들을 호스트에서 공유 가능함
+     - 콜론 기준 왼쪽 : 내 호스트 서버의 루트 경로로 잡음
+     - 콜론 기준 오른쪽 : 컨테이너 내부 젠킨스 폴더 경로
+     - **주의할 점** : 경로의 시작은 / 경로로 시작해야된다.
+   - `--name` : 컨테이너 이름 설정
+   - `jenkins/jenkins:lt` : pull 받은 image명과 버전. 버전을 적지 않으면 latest 버전으로 자동 pull or 실행
+
+   ```bash
+   $ docker run -d -p 9090:8080 -v /Desktop/jenkins:/var/jenkins_home --name jenkins -u root jenkins/jenkins:lt
+   ```
+
+3. Jenkins 접속하기
+
+   - localhost:9090
+
+4. 초기 접속시 Administrator password 입력 필수
+
+   - 도커로 접속시 컨테이너 로그를 확인하여 비밀번호를 확인 가능
+
+     ````bash
+     $ docker container ls
+     # CONTAINER ID 확인
+     $ docker logs [CONTAINER ID]
+     # 중간에 password 정보 확인
+     ````
+
+   - 일반 설치일 경우
+
+     - /var/jenkins_home/secrets/initialAdminPassword 관리자 권한으로 열면 비밀번호 확인 가능
+
+5. Install Plugin
+
+   - 젠킨스 설치화면에 나오는 [ Install suggested plugins ] 으로 설치 진행
+
+6. 설치 완료
 
 
 
+### Jenkins 활용하기
 
+1. SSH 연결을 통한 다른 서버 배포 프로세스
 
-### 홈페이지 Install을 통한 Jenkins 사용
+   1. 버전관리시스템에서 소스 코드 PULL
+
+   2. 배포 서버에서 빌드 및 테스트 진행
+   3. 실행 가능한 jar 파일 생성
+   4. jar file 개발/운영 서버에 배포
+   5. script 실행 : Application 동작
 
 
 
